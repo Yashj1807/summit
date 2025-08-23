@@ -1,0 +1,1622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkillSync - Share & Learn Skills</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 0;
+        }
+
+        /* Logo Styles */
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px 0;
+            animation: pulse 2s ease-in-out infinite alternate;
+        }
+
+        .logo-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, #ff6b6b, #feca57);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            box-shadow: 0 8px 32px rgba(255, 107, 107, 0.3);
+        }
+
+        .logo-icon i {
+            color: white;
+            font-size: 28px;
+        }
+
+        .logo-text {
+            font-size: 32px;
+            font-weight: 800;
+            background: linear-gradient(45deg, #ff6b6b, #feca57);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        @keyframes pulse {
+            from { transform: scale(1); }
+            to { transform: scale(1.05); }
+        }
+
+        /* Screen Styles */
+        .screen {
+            display: none;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        /* Login Screen */
+        .login-screen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .login-card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 400px;
+            backdrop-filter: blur(10px);
+        }
+
+        .input-group {
+            margin: 20px 0;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e1e5e9;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 10px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-google {
+            background: #db4437;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        /* Dashboard */
+        .dashboard-header {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .user-info h2 {
+            color: white;
+            margin-bottom: 5px;
+        }
+
+        .credits {
+            background: linear-gradient(45deg, #feca57, #ff9ff3);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-tabs {
+            display: flex;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 5px;
+            margin-bottom: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-tab {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            border-radius: 10px;
+            color: rgba(255, 255, 255, 0.7);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .nav-tab.active {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .skill-card, .session-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .skill-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .skill-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .price-tag {
+            background: linear-gradient(45deg, #ff6b6b, #feca57);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+
+        .skill-description {
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .skill-instructor {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .instructor-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .btn-small {
+            padding: 10px 20px;
+            font-size: 14px;
+            border-radius: 20px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-book {
+            background: linear-gradient(45deg, #48cae4, #0077b6);
+            color: white;
+        }
+
+        .btn-teach {
+            background: linear-gradient(45deg, #38d9a9, #20bf6b);
+            color: white;
+        }
+
+        /* Video Call Interface */
+        .video-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+            height: 60vh;
+        }
+
+        .video-frame {
+            background: #000;
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .video-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+        }
+
+        .call-controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .control-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .btn-mic { background: #48cae4; }
+        .btn-camera { background: #38d9a9; }
+        .btn-screen { background: #feca57; }
+        .btn-end { background: #ff6b6b; }
+        .btn-chat { background: #764ba2; }
+
+        .control-btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* Payment Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            animation: modalSlideIn 0.3s ease-out;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .credit-option {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            margin: 10px 0;
+            border: 2px solid #e1e5e9;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .credit-option:hover, .credit-option.selected {
+            border-color: #667eea;
+            background: rgba(102, 126, 234, 0.1);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .logo-text {
+                font-size: 24px;
+            }
+            
+            .login-card {
+                padding: 30px 20px;
+            }
+            
+            .dashboard-header {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .nav-tabs {
+                flex-direction: column;
+            }
+            
+            .video-container {
+                height: 50vh;
+            }
+            
+            .call-controls {
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Status Indicators */
+        .status-online {
+            width: 12px;
+            height: 12px;
+            background: #20bf6b;
+            border-radius: 50%;
+            display: inline-block;
+            margin-left: 5px;
+            box-shadow: 0 0 10px rgba(32, 191, 107, 0.5);
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(45deg, #38d9a9, #20bf6b);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+            z-index: 1001;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .chat-sidebar {
+            position: fixed;
+            right: -300px;
+            top: 0;
+            width: 300px;
+            height: 100vh;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            transition: right 0.3s ease;
+            z-index: 999;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .chat-sidebar.open {
+            right: 0;
+        }
+
+        .chat-messages {
+            height: calc(100vh - 150px);
+            overflow-y: auto;
+            margin-bottom: 20px;
+        }
+
+        .chat-message {
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            background: #f8f9fa;
+        }
+
+        .chat-input {
+            display: flex;
+            gap: 10px;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Login Screen -->
+        <div id="loginScreen" class="screen active login-screen">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-exchange-alt"></i>
+                </div>
+                <div class="logo-text">SkillSync</div>
+            </div>
+            
+            <div class="login-card">
+                <h2 style="text-align: center; margin-bottom: 30px; color: #333;">Welcome to SkillSync</h2>
+                <p style="text-align: center; color: #666; margin-bottom: 30px;">Share your skills, learn from others</p>
+                
+                <button class="btn btn-google" onclick="loginWithGoogle()">
+                    <i class="fab fa-google"></i>
+                    Continue with Google
+                </button>
+                
+                <div style="text-align: center; margin: 20px 0; color: #999;">or</div>
+                
+                <div class="input-group">
+                    <label>Email or Username</label>
+                    <input type="text" id="loginUsername" placeholder="Enter your email or username">
+                </div>
+                
+                <div class="input-group">
+                    <label>Password</label>
+                    <input type="password" id="loginPassword" placeholder="Enter your password">
+                </div>
+                
+                <button class="btn btn-primary" onclick="loginWithCredentials()">
+                    Sign In
+                </button>
+                
+                <div style="text-align: center; margin-top: 20px;">
+                    <a href="#" style="color: #667eea; text-decoration: none;" onclick="showSignup()">Don't have an account? Sign up</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Screen -->
+        <div id="dashboardScreen" class="screen">
+            <div class="dashboard-header">
+                <div class="user-info">
+                    <h2 id="userName">Welcome back!</h2>
+                    <p style="color: rgba(255,255,255,0.8);">Ready to learn or teach?</p>
+                </div>
+                <div class="credits" onclick="openPaymentModal()">
+                    <i class="fas fa-coins"></i>
+                    <span id="userCredits">150</span> Credits
+                </div>
+            </div>
+
+            <div class="nav-tabs">
+                <div class="nav-tab active" onclick="showTab('learn')">
+                    <i class="fas fa-graduation-cap"></i> Learn
+                </div>
+                <div class="nav-tab" onclick="showTab('teach')">
+                    <i class="fas fa-chalkboard-teacher"></i> Teach
+                </div>
+                <div class="nav-tab" onclick="showTab('sessions')">
+                    <i class="fas fa-calendar"></i> My Sessions
+                </div>
+            </div>
+
+            <!-- Learn Tab -->
+            <div id="learnTab" class="tab-content">
+                <div class="skill-card">
+                    <div class="skill-header">
+                        <h3 class="skill-title">Advanced JavaScript & React</h3>
+                        <div class="price-tag">25 Credits</div>
+                    </div>
+                    <div class="skill-description">
+                        Master modern JavaScript ES6+ features and build dynamic React applications. Perfect for beginners to intermediate developers.
+                    </div>
+                    <div class="skill-instructor">
+                        <div class="instructor-avatar">AK</div>
+                        <div>
+                            <div style="font-weight: bold;">Arjun Kumar</div>
+                            <div style="font-size: 12px; color: #999;">Senior Developer <span class="status-online"></span></div>
+                        </div>
+                    </div>
+                    <button class="btn-small btn-book" onclick="bookSession('js-react', 25)">
+                        <i class="fas fa-video"></i> Book Session
+                    </button>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-header">
+                        <h3 class="skill-title">Digital Marketing Mastery</h3>
+                        <div class="price-tag">20 Credits</div>
+                    </div>
+                    <div class="skill-description">
+                        Learn SEO, social media marketing, content strategy, and PPC advertising from industry experts.
+                    </div>
+                    <div class="skill-instructor">
+                        <div class="instructor-avatar">PS</div>
+                        <div>
+                            <div style="font-weight: bold;">Priya Sharma</div>
+                            <div style="font-size: 12px; color: #999;">Marketing Director <span class="status-online"></span></div>
+                        </div>
+                    </div>
+                    <button class="btn-small btn-book" onclick="bookSession('digital-marketing', 20)">
+                        <i class="fas fa-video"></i> Book Session
+                    </button>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-header">
+                        <h3 class="skill-title">Guitar for Beginners</h3>
+                        <div class="price-tag">15 Credits</div>
+                    </div>
+                    <div class="skill-description">
+                        Start your musical journey! Learn basic chords, strumming patterns, and play your first songs.
+                    </div>
+                    <div class="skill-instructor">
+                        <div class="instructor-avatar">RV</div>
+                        <div>
+                            <div style="font-weight: bold;">Rahul Verma</div>
+                            <div style="font-size: 12px; color: #999;">Music Teacher <span class="status-online"></span></div>
+                        </div>
+                    </div>
+                    <button class="btn-small btn-book" onclick="bookSession('guitar', 15)">
+                        <i class="fas fa-video"></i> Book Session
+                    </button>
+                </div>
+            </div>
+
+            <!-- Teach Tab -->
+            <div id="teachTab" class="tab-content" style="display: none;">
+                <div style="text-align: center; padding: 40px 20px; background: rgba(255,255,255,0.1); border-radius: 15px; margin-bottom: 20px;">
+                    <h3 style="color: white; margin-bottom: 15px;">Share Your Expertise</h3>
+                    <p style="color: rgba(255,255,255,0.8); margin-bottom: 20px;">Earn credits by teaching what you know best</p>
+                    <button class="btn btn-primary" onclick="showCreateListingForm()">
+                        <i class="fas fa-plus"></i> Create New Skill Listing
+                    </button>
+                </div>
+
+                <!-- Create Listing Form -->
+                <div id="createListingForm" class="skill-card" style="display: none;">
+                    <div class="skill-header">
+                        <h3 class="skill-title">Create New Skill Listing</h3>
+                        <button onclick="hideCreateListingForm()" style="background: none; border: none; font-size: 20px; cursor: pointer; color: #999;">×</button>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>Skill Title *</label>
+                        <input type="text" id="skillTitle" placeholder="e.g., Advanced Python Programming">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>Category *</label>
+                        <select id="skillCategory" style="width: 100%; padding: 15px; border: 2px solid #e1e5e9; border-radius: 10px; font-size: 16px; background: white;">
+                            <option value="">Select a category</option>
+                            <option value="programming">Programming & Tech</option>
+                            <option value="design">Design & Creative</option>
+                            <option value="business">Business & Marketing</option>
+                            <option value="music">Music & Arts</option>
+                            <option value="language">Languages</option>
+                            <option value="fitness">Health & Fitness</option>
+                            <option value="cooking">Cooking & Lifestyle</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>Description *</label>
+                        <textarea id="skillDescription" placeholder="Describe what students will learn, your experience, and what makes your teaching unique..." style="width: 100%; padding: 15px; border: 2px solid #e1e5e9; border-radius: 10px; font-size: 16px; min-height: 100px; resize: vertical; background: white;"></textarea>
+                    </div>
+                    
+                    <div style="display: flex; gap: 15px;">
+                        <div class="input-group" style="flex: 1;">
+                            <label>Session Duration</label>
+                            <select id="sessionDuration" style="width: 100%; padding: 15px; border: 2px solid #e1e5e9; border-radius: 10px; font-size: 16px; background: white;">
+                                <option value="30">30 minutes</option>
+                                <option value="60" selected>1 hour</option>
+                                <option value="90">1.5 hours</option>
+                                <option value="120">2 hours</option>
+                            </select>
+                        </div>
+                        
+                        <div class="input-group" style="flex: 1;">
+                            <label>Price (Credits) *</label>
+                            <input type="number" id="skillPrice" placeholder="20" min="5" max="100">
+                        </div>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>Your Experience Level</label>
+                        <select id="experienceLevel" style="width: 100%; padding: 15px; border: 2px solid #e1e5e9; border-radius: 10px; font-size: 16px; background: white;">
+                            <option value="beginner">Beginner (1-2 years)</option>
+                            <option value="intermediate">Intermediate (3-5 years)</option>
+                            <option value="advanced">Advanced (5+ years)</option>
+                            <option value="expert">Expert (10+ years)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>Available Time Slots</label>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; margin-top: 10px;">
+                            <label style="display: flex; align-items: center; gap: 8px; font-weight: normal; cursor: pointer;">
+                                <input type="checkbox" value="morning"> Morning (9AM-12PM)
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 8px; font-weight: normal; cursor: pointer;">
+                                <input type="checkbox" value="afternoon"> Afternoon (12PM-5PM)
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 8px; font-weight: normal; cursor: pointer;">
+                                <input type="checkbox" value="evening"> Evening (5PM-9PM)
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 8px; font-weight: normal; cursor: pointer;">
+                                <input type="checkbox" value="night"> Night (9PM-12AM)
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div style="display: flex; gap: 10px; margin-top: 20px;">
+                        <button class="btn btn-primary" onclick="submitSkillListing()" style="flex: 1;">
+                            <i class="fas fa-check"></i> Create Listing
+                        </button>
+                        <button class="btn" onclick="hideCreateListingForm()" style="flex: 1; background: #f8f9fa; color: #333;">
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Active Listings -->
+                <div class="skill-card">
+                    <div class="skill-header">
+                        <h3 class="skill-title">Your Active Listings</h3>
+                        <span id="listingsCount" style="background: rgba(102, 126, 234, 0.1); color: #667eea; padding: 5px 15px; border-radius: 20px; font-size: 14px;">0 Active</span>
+                    </div>
+                    <div id="activeListings">
+                        <div id="noListingsMsg" style="color: #666; text-align: center; padding: 20px;">
+                            No active listings yet. Create your first skill listing to start earning!
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Earnings Summary -->
+                <div class="skill-card">
+                    <div class="skill-header">
+                        <h3 class="skill-title">Earnings Summary</h3>
+                        <div style="display: flex; gap: 15px; align-items: center;">
+                            <div style="text-align: center;">
+                                <div style="font-size: 24px; font-weight: bold; color: #38d9a9;" id="totalEarnings">0</div>
+                                <div style="font-size: 12px; color: #999;">Credits Earned</div>
+                            </div>
+                            <div style="text-align: center;">
+                                <div style="font-size: 24px; font-weight: bold; color: #667eea;" id="totalSessions">0</div>
+                                <div style="font-size: 12px; color: #999;">Sessions Completed</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="color: #666; padding: 10px 0;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                            <span>This Month:</span>
+                            <span style="font-weight: bold; color: #38d9a9;">+0 credits</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between;">
+                            <span>Average Rating:</span>
+                            <span style="font-weight: bold; color: #feca57;">
+                                <i class="fas fa-star"></i> N/A
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sessions Tab -->
+            <div id="sessionsTab" class="tab-content" style="display: none;">
+                <div class="session-card">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                        <h3>Upcoming: JavaScript Session</h3>
+                        <span style="background: #38d9a9; color: white; padding: 5px 10px; border-radius: 15px; font-size: 12px;">Confirmed</span>
+                    </div>
+                    <div style="color: #666; margin-bottom: 10px;">
+                        <i class="fas fa-calendar"></i> Today, 3:00 PM - 4:00 PM
+                    </div>
+                    <div style="color: #666; margin-bottom: 15px;">
+                        <i class="fas fa-user"></i> with Arjun Kumar
+                    </div>
+                    <button class="btn-small btn-book" onclick="joinVideoCall('session-1')">
+                        <i class="fas fa-video"></i> Join Session
+                    </button>
+                </div>
+
+                <div class="session-card">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                        <h3>Past: Digital Marketing</h3>
+                        <span style="background: #999; color: white; padding: 5px 10px; border-radius: 15px; font-size: 12px;">Completed</span>
+                    </div>
+                    <div style="color: #666; margin-bottom: 10px;">
+                        <i class="fas fa-calendar"></i> Yesterday, 2:00 PM - 3:00 PM
+                    </div>
+                    <div style="color: #666; margin-bottom: 15px;">
+                        <i class="fas fa-user"></i> with Priya Sharma
+                    </div>
+                    <div style="color: #38d9a9; font-weight: bold;">
+                        <i class="fas fa-star"></i> Session Completed - 20 Credits Deducted
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Video Call Screen -->
+        <div id="videoCallScreen" class="screen">
+            <div class="video-container">
+                <div class="video-frame">
+                    <div class="video-placeholder">
+                        <div style="text-align: center;">
+                            <i class="fas fa-video" style="font-size: 48px; margin-bottom: 15px; display: block;"></i>
+                            <div>Connecting to video call...</div>
+                            <div style="font-size: 14px; margin-top: 10px; opacity: 0.7;">JavaScript Session with Arjun</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="call-controls">
+                <button class="control-btn btn-mic" onclick="toggleMic()" title="Mute/Unmute">
+                    <i class="fas fa-microphone" id="micIcon"></i>
+                </button>
+                <button class="control-btn btn-camera" onclick="toggleCamera()" title="Camera On/Off">
+                    <i class="fas fa-video" id="cameraIcon"></i>
+                </button>
+                <button class="control-btn btn-screen" onclick="shareScreen()" title="Share Screen">
+                    <i class="fas fa-desktop"></i>
+                </button>
+                <button class="control-btn btn-chat" onclick="toggleChat()" title="Chat">
+                    <i class="fas fa-comments"></i>
+                </button>
+                <button class="control-btn btn-end" onclick="endCall()" title="End Call">
+                    <i class="fas fa-phone-slash"></i>
+                </button>
+            </div>
+
+            <div style="text-align: center; margin-top: 20px;">
+                <button class="btn btn-primary" onclick="goToDashboard()">
+                    <i class="fas fa-arrow-left"></i> Back to Dashboard
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Payment Modal -->
+    <div id="paymentModal" class="modal">
+        <div class="modal-content">
+            <h3 style="margin-bottom: 20px;">Buy Credits</h3>
+            <p style="color: #666; margin-bottom: 20px;">Select the number of credits to purchase</p>
+            
+            <div class="credit-option" onclick="selectCreditPack(10, 100)">
+                <div>
+                    <div style="font-weight: bold;">10 Credits</div>
+                    <div style="font-size: 12px; color: #999;">Perfect for 1-2 sessions</div>
+                </div>
+                <div style="font-weight: bold; color: #667eea;">₹100</div>
+            </div>
+            
+            <div class="credit-option" onclick="selectCreditPack(25, 225)">
+                <div>
+                    <div style="font-weight: bold;">25 Credits</div>
+                    <div style="font-size: 12px; color: #999;">Save ₹25! Most popular</div>
+                </div>
+                <div style="font-weight: bold; color: #667eea;">₹225</div>
+            </div>
+            
+            <div class="credit-option" onclick="selectCreditPack(50, 400)">
+                <div>
+                    <div style="font-weight: bold;">50 Credits</div>
+                    <div style="font-size: 12px; color: #999;">Save ₹100! Best value</div>
+                </div>
+                <div style="font-weight: bold; color: #667eea;">₹400</div>
+            </div>
+            
+            <div style="margin: 20px 0;">
+                <div id="selectedPack" style="font-weight: bold; color: #333; margin-bottom: 10px;">Select a pack above</div>
+                <div style="font-size: 12px; color: #999;">Payment via UPI: 9506344448@slc</div>
+            </div>
+            
+            <div style="display: flex; gap: 10px;">
+                <button class="btn btn-primary" onclick="processPayment()" style="flex: 1;" id="payBtn" disabled>
+                    Pay Now
+                </button>
+                <button class="btn" onclick="closePaymentModal()" style="flex: 1; background: #f8f9fa; color: #333;">
+                    Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chat Sidebar -->
+    <div id="chatSidebar" class="chat-sidebar">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <h3>Session Chat</h3>
+            <button onclick="toggleChat()" style="background: none; border: none; font-size: 20px; cursor: pointer;">×</button>
+        </div>
+        <div class="chat-messages" id="chatMessages">
+            <div class="chat-message">
+                <strong>Arjun:</strong> Welcome to the JavaScript session! Ready to start?
+            </div>
+        </div>
+        <div class="chat-input">
+            <input type="text" placeholder="Type a message..." id="chatInput" onkeypress="handleChatKeyPress(event)">
+            <button onclick="sendMessage()" style="padding: 10px; background: #667eea; color: white; border: none; border-radius: 20px;">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Notification -->
+    <div id="notification" class="notification"></div>
+
+    <script>
+        // App State
+        let currentUser = null;
+        let userCredits = 150;
+        let selectedCreditPack = null;
+        let isCallActive = false;
+        let isMicOn = true;
+        let isCameraOn = true;
+        let isChatOpen = false;
+        let userListings = [];
+        let totalEarnings = 0;
+        let totalSessions = 0;
+
+        // Authentication Functions
+        function loginWithGoogle() {
+            showNotification('Connecting with Google...', 'info');
+            
+            // Simulate Google OAuth
+            setTimeout(() => {
+                currentUser = {
+                    name: 'John Doe',
+                    email: 'john.doe@gmail.com',
+                    avatar: 'JD',
+                    loginMethod: 'google'
+                };
+                showNotification('Successfully logged in with Google!', 'success');
+                showScreen('dashboardScreen');
+                updateUserInfo();
+            }, 2000);
+        }
+
+        function loginWithCredentials() {
+            const username = document.getElementById('loginUsername').value;
+            const password = document.getElementById('loginPassword').value;
+
+            if (!username || !password) {
+                showNotification('Please enter both username and password', 'error');
+                return;
+            }
+
+            showNotification('Signing in...', 'info');
+
+            // Simulate login process
+            setTimeout(() => {
+                currentUser = {
+                    name: username.includes('@') ? username.split('@')[0] : username,
+                    email: username.includes('@') ? username : `${username}@skillsync.com`,
+                    avatar: username.charAt(0).toUpperCase(),
+                    loginMethod: 'credentials'
+                };
+                showNotification('Successfully logged in!', 'success');
+                showScreen('dashboardScreen');
+                updateUserInfo();
+            }, 1500);
+        }
+
+        function showSignup() {
+            showNotification('Signup feature coming soon! Use login for demo.', 'info');
+        }
+
+        function updateUserInfo() {
+            if (currentUser) {
+                document.getElementById('userName').textContent = `Welcome, ${currentUser.name}!`;
+                document.getElementById('userCredits').textContent = userCredits;
+                updateEarningsDisplay();
+            }
+        }
+
+        // Navigation Functions
+        function showScreen(screenId) {
+            document.querySelectorAll('.screen').forEach(screen => {
+                screen.classList.remove('active');
+            });
+            document.getElementById(screenId).classList.add('active');
+        }
+
+        function showTab(tabName) {
+            // Update nav tabs
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // Show corresponding content
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.style.display = 'none';
+            });
+            document.getElementById(tabName + 'Tab').style.display = 'block';
+        }
+
+        // Session Booking
+        function bookSession(skillId, cost) {
+            if (userCredits < cost) {
+                showNotification('Insufficient credits! Please buy more credits.', 'error');
+                openPaymentModal();
+                return;
+            }
+
+            showNotification(`Booking session... Cost: ${cost} credits`, 'info');
+            
+            setTimeout(() => {
+                userCredits -= cost;
+                updateUserInfo();
+                showNotification('Session booked successfully! Check "My Sessions" tab.', 'success');
+            }, 1500);
+        }
+
+        function createSkillListing() {
+            showNotification('Skill listing creation feature coming soon!', 'info');
+        }
+
+        // Teaching Functions
+        function showCreateListingForm() {
+            document.getElementById('createListingForm').style.display = 'block';
+            document.getElementById('createListingForm').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function hideCreateListingForm() {
+            document.getElementById('createListingForm').style.display = 'none';
+            clearListingForm();
+        }
+
+        function clearListingForm() {
+            document.getElementById('skillTitle').value = '';
+            document.getElementById('skillCategory').value = '';
+            document.getElementById('skillDescription').value = '';
+            document.getElementById('skillPrice').value = '';
+            document.getElementById('experienceLevel').value = 'beginner';
+            document.getElementById('sessionDuration').value = '60';
+            
+            // Clear time slot checkboxes
+            document.querySelectorAll('#createListingForm input[type="checkbox"]').forEach(checkbox => {
+                checkbox.checked = false;
+            });
+        }
+
+        function submitSkillListing() {
+            const title = document.getElementById('skillTitle').value.trim();
+            const category = document.getElementById('skillCategory').value;
+            const description = document.getElementById('skillDescription').value.trim();
+            const price = parseInt(document.getElementById('skillPrice').value);
+            const duration = parseInt(document.getElementById('sessionDuration').value);
+            const experience = document.getElementById('experienceLevel').value;
+            
+            // Get selected time slots
+            const timeSlots = [];
+            document.querySelectorAll('#createListingForm input[type="checkbox"]:checked').forEach(checkbox => {
+                timeSlots.push(checkbox.value);
+            });
+
+            // Validation
+            if (!title) {
+                showNotification('Please enter a skill title', 'error');
+                return;
+            }
+            
+            if (!category) {
+                showNotification('Please select a category', 'error');
+                return;
+            }
+            
+            if (!description || description.length < 50) {
+                showNotification('Please provide a detailed description (at least 50 characters)', 'error');
+                return;
+            }
+            
+            if (!price || price < 5 || price > 100) {
+                showNotification('Please enter a price between 5 and 100 credits', 'error');
+                return;
+            }
+            
+            if (timeSlots.length === 0) {
+                showNotification('Please select at least one available time slot', 'error');
+                return;
+            }
+
+            // Create new listing
+            const newListing = {
+                id: Date.now(),
+                title,
+                category,
+                description,
+                price,
+                duration,
+                experience,
+                timeSlots,
+                instructor: currentUser.name,
+                instructorAvatar: currentUser.avatar,
+                rating: 0,
+                totalSessions: 0,
+                isActive: true,
+                createdAt: new Date()
+            };
+
+            userListings.push(newListing);
+            showNotification('Skill listing created successfully!', 'success');
+            hideCreateListingForm();
+            updateActiveListings();
+        }
+
+        function updateActiveListings() {
+            const activeListingsContainer = document.getElementById('activeListings');
+            const noListingsMsg = document.getElementById('noListingsMsg');
+            const listingsCount = document.getElementById('listingsCount');
+            
+            const activeListings = userListings.filter(listing => listing.isActive);
+            
+            if (activeListings.length === 0) {
+                noListingsMsg.style.display = 'block';
+                listingsCount.textContent = '0 Active';
+                return;
+            }
+            
+            noListingsMsg.style.display = 'none';
+            listingsCount.textContent = `${activeListings.length} Active`;
+            
+            // Clear existing listings except the no listings message
+            while (activeListingsContainer.children.length > 1) {
+                activeListingsContainer.removeChild(activeListingsContainer.lastChild);
+            }
+            
+            activeListings.forEach(listing => {
+                const listingElement = createListingElement(listing);
+                activeListingsContainer.appendChild(listingElement);
+            });
+        }
+
+        function createListingElement(listing) {
+            const listingDiv = document.createElement('div');
+            listingDiv.className = 'skill-card';
+            listingDiv.style.margin = '15px 0';
+            
+            listingDiv.innerHTML = `
+                <div class="skill-header">
+                    <h3 class="skill-title">${listing.title}</h3>
+                    <div class="price-tag">${listing.price} Credits</div>
+                </div>
+                <div class="skill-description" style="margin-bottom: 15px;">
+                    ${listing.description}
+                </div>
+                <div style="display: flex; gap: 15px; align-items: center; margin-bottom: 15px; flex-wrap: wrap;">
+                    <div style="display: flex; align-items: center; gap: 5px; font-size: 14px; color: #666;">
+                        <i class="fas fa-tag"></i>
+                        <span style="text-transform: capitalize;">${listing.category}</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 5px; font-size: 14px; color: #666;">
+                        <i class="fas fa-clock"></i>
+                        <span>${listing.duration} min</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 5px; font-size: 14px; color: #666;">
+                        <i class="fas fa-medal"></i>
+                        <span style="text-transform: capitalize;">${listing.experience}</span>
+                    </div>
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <div style="font-size: 14px; color: #666; margin-bottom: 5px;">Available Time Slots:</div>
+                    <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                        ${listing.timeSlots.map(slot => `
+                            <span style="background: rgba(102, 126, 234, 0.1); color: #667eea; padding: 4px 12px; border-radius: 15px; font-size: 12px; text-transform: capitalize;">
+                                ${slot}
+                            </span>
+                        `).join('')}
+                    </div>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div style="display: flex; gap: 15px; align-items: center;">
+                        <div style="font-size: 14px; color: #38d9a9; font-weight: bold;">
+                            <i class="fas fa-calendar-check"></i> ${listing.totalSessions} sessions
+                        </div>
+                        <div style="font-size: 14px; color: #feca57; font-weight: bold;">
+                            <i class="fas fa-star"></i> ${listing.rating > 0 ? listing.rating.toFixed(1) : 'No ratings yet'}
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 10px;">
+                        <button class="btn-small" onclick="editListing(${listing.id})" style="background: #667eea; color: white;">
+                            <i class="fas fa-edit"></i> Edit
+                        </button>
+                        <button class="btn-small" onclick="toggleListingStatus(${listing.id})" style="background: ${listing.isActive ? '#ff6b6b' : '#38d9a9'}; color: white;">
+                            <i class="fas fa-${listing.isActive ? 'pause' : 'play'}"></i> ${listing.isActive ? 'Pause' : 'Activate'}
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            return listingDiv;
+        }
+
+        function editListing(listingId) {
+            const listing = userListings.find(l => l.id === listingId);
+            if (!listing) return;
+            
+            // Populate form with existing data
+            document.getElementById('skillTitle').value = listing.title;
+            document.getElementById('skillCategory').value = listing.category;
+            document.getElementById('skillDescription').value = listing.description;
+            document.getElementById('skillPrice').value = listing.price;
+            document.getElementById('sessionDuration').value = listing.duration;
+            document.getElementById('experienceLevel').value = listing.experience;
+            
+            // Set time slot checkboxes
+            listing.timeSlots.forEach(slot => {
+                const checkbox = document.querySelector(`#createListingForm input[value="${slot}"]`);
+                if (checkbox) checkbox.checked = true;
+            });
+            
+            showCreateListingForm();
+            
+            // Change submit button to update mode
+            const submitBtn = document.querySelector('#createListingForm .btn-primary');
+            submitBtn.innerHTML = '<i class="fas fa-save"></i> Update Listing';
+            submitBtn.onclick = () => updateSkillListing(listingId);
+        }
+
+        function updateSkillListing(listingId) {
+            const listingIndex = userListings.findIndex(l => l.id === listingId);
+            if (listingIndex === -1) return;
+            
+            const title = document.getElementById('skillTitle').value.trim();
+            const category = document.getElementById('skillCategory').value;
+            const description = document.getElementById('skillDescription').value.trim();
+            const price = parseInt(document.getElementById('skillPrice').value);
+            const duration = parseInt(document.getElementById('sessionDuration').value);
+            const experience = document.getElementById('experienceLevel').value;
+            
+            const timeSlots = [];
+            document.querySelectorAll('#createListingForm input[type="checkbox"]:checked').forEach(checkbox => {
+                timeSlots.push(checkbox.value);
+            });
+
+            // Validation (same as create)
+            if (!title || !category || !description || description.length < 50 || !price || price < 5 || price > 100 || timeSlots.length === 0) {
+                showNotification('Please fill all required fields correctly', 'error');
+                return;
+            }
+
+            // Update the listing
+            userListings[listingIndex] = {
+                ...userListings[listingIndex],
+                title,
+                category,
+                description,
+                price,
+                duration,
+                experience,
+                timeSlots,
+                updatedAt: new Date()
+            };
+
+            showNotification('Listing updated successfully!', 'success');
+            hideCreateListingForm();
+            updateActiveListings();
+            
+            // Reset submit button
+            const submitBtn = document.querySelector('#createListingForm .btn-primary');
+            submitBtn.innerHTML = '<i class="fas fa-check"></i> Create Listing';
+            submitBtn.onclick = submitSkillListing;
+        }
+
+        function toggleListingStatus(listingId) {
+            const listing = userListings.find(l => l.id === listingId);
+            if (!listing) return;
+            
+            listing.isActive = !listing.isActive;
+            const status = listing.isActive ? 'activated' : 'paused';
+            showNotification(`Listing ${status} successfully!`, 'success');
+            updateActiveListings();
+        }
+
+        function updateEarningsDisplay() {
+            document.getElementById('totalEarnings').textContent = totalEarnings;
+            document.getElementById('totalSessions').textContent = totalSessions;
+        }
+
+        // Video Call Functions
+        function joinVideoCall(sessionId) {
+            showNotification('Connecting to video session...', 'info');
+            showScreen('videoCallScreen');
+            isCallActive = true;
+            
+            // Simulate connection
+            setTimeout(() => {
+                showNotification('Connected successfully!', 'success');
+            }, 2000);
+        }
+
+        function toggleMic() {
+            isMicOn = !isMicOn;
+            const micIcon = document.getElementById('micIcon');
+            if (isMicOn) {
+                micIcon.className = 'fas fa-microphone';
+                document.querySelector('.btn-mic').style.background = '#48cae4';
+            } else {
+                micIcon.className = 'fas fa-microphone-slash';
+                document.querySelector('.btn-mic').style.background = '#ff6b6b';
+            }
+            showNotification(isMicOn ? 'Microphone turned on' : 'Microphone muted', 'info');
+        }
+
+        function toggleCamera() {
+            isCameraOn = !isCameraOn;
+            const cameraIcon = document.getElementById('cameraIcon');
+            if (isCameraOn) {
+                cameraIcon.className = 'fas fa-video';
+                document.querySelector('.btn-camera').style.background = '#38d9a9';
+            } else {
+                cameraIcon.className = 'fas fa-video-slash';
+                document.querySelector('.btn-camera').style.background = '#ff6b6b';
+            }
+            showNotification(isCameraOn ? 'Camera turned on' : 'Camera turned off', 'info');
+        }
+
+        function shareScreen() {
+            if (navigator.mediaDevices && navigator.mediaDevices.getDisplayMedia) {
+                navigator.mediaDevices.getDisplayMedia({ video: true, audio: true })
+                    .then(stream => {
+                        showNotification('Screen sharing started', 'success');
+                        // Here you would integrate with your video API
+                    })
+                    .catch(err => {
+                        showNotification('Screen sharing cancelled or failed', 'error');
+                    });
+            } else {
+                showNotification('Screen sharing not supported in this browser', 'error');
+            }
+        }
+
+        function toggleChat() {
+            isChatOpen = !isChatOpen;
+            const chatSidebar = document.getElementById('chatSidebar');
+            if (isChatOpen) {
+                chatSidebar.classList.add('open');
+            } else {
+                chatSidebar.classList.remove('open');
+            }
+        }
+
+        function endCall() {
+            if (confirm('Are you sure you want to end the call?')) {
+                isCallActive = false;
+                showNotification('Call ended', 'info');
+                goToDashboard();
+            }
+        }
+
+        function goToDashboard() {
+            showScreen('dashboardScreen');
+            if (isChatOpen) {
+                toggleChat();
+            }
+        }
+
+        // Chat Functions
+        function handleChatKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            
+            if (message) {
+                const chatMessages = document.getElementById('chatMessages');
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'chat-message';
+                messageDiv.innerHTML = `<strong>You:</strong> ${message}`;
+                chatMessages.appendChild(messageDiv);
+                
+                input.value = '';
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+                
+                // Simulate instructor response
+                setTimeout(() => {
+                    const responseDiv = document.createElement('div');
+                    responseDiv.className = 'chat-message';
+                    responseDiv.innerHTML = `<strong>Arjun:</strong> Thanks for your question! Let me explain...`;
+                    chatMessages.appendChild(responseDiv);
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                }, 1000);
+            }
+        }
+
+        // Payment Functions
+        function openPaymentModal() {
+            document.getElementById('paymentModal').classList.add('active');
+        }
+
+        function closePaymentModal() {
+            document.getElementById('paymentModal').classList.remove('active');
+            selectedCreditPack = null;
+            document.getElementById('payBtn').disabled = true;
+            document.querySelectorAll('.credit-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+        }
+
+        function selectCreditPack(credits, price) {
+            selectedCreditPack = { credits, price };
+            
+            document.querySelectorAll('.credit-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            event.currentTarget.classList.add('selected');
+            
+            document.getElementById('selectedPack').textContent = `${credits} Credits - ₹${price}`;
+            document.getElementById('payBtn').disabled = false;
+        }
+
+        function processPayment() {
+            if (!selectedCreditPack) return;
+            
+            const { credits, price } = selectedCreditPack;
+            
+            // Simulate payment processing with UPI
+            showNotification('Redirecting to payment gateway...', 'info');
+            
+            // Create UPI payment URL
+            const upiId = '9506344448@slc';
+            const amount = price;
+            const note = `SkillSync Credits: ${credits} credits`;
+            
+            // UPI payment URL format
+            const upiUrl = `upi://pay?pa=${upiId}&pn=SkillSync&am=${amount}&cu=INR&tn=${encodeURIComponent(note)}`;
+            
+            // Try to open UPI app, fallback to manual payment
+            const isMobile = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+            
+            if (isMobile) {
+                window.location.href = upiUrl;
+            } else {
+                // For desktop, show QR code or manual payment details
+                showNotification(`Please pay ₹${price} to UPI ID: ${upiId}`, 'info');
+            }
+            
+            // Simulate successful payment after 3 seconds
+            setTimeout(() => {
+                userCredits += credits;
+                updateUserInfo();
+                showNotification(`Payment successful! ${credits} credits added to your account.`, 'success');
+                closePaymentModal();
+            }, 3000);
+        }
+
+        // Notification System
+        function showNotification(message, type = 'info') {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.className = `notification show ${type}`;
+            
+            // Auto hide after 3 seconds
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        // Initialize app
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add smooth animations
+            document.body.style.opacity = '0';
+            setTimeout(() => {
+                document.body.style.transition = 'opacity 0.5s ease';
+                document.body.style.opacity = '1';
+            }, 100);
+
+            // Simulate checking for existing session
+            setTimeout(() => {
+                showNotification('Welcome to SkillSync! Please log in to continue.', 'info');
+            }, 1000);
+        });
+
+        // Service Worker for offline functionality
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(function(registration) {
+                        console.log('SW registered: ', registration);
+                    }, function(registrationError) {
+                        console.log('SW registration failed: ', registrationError);
+                    });
+            });
+        }
+
+        // Handle online/offline status
+        window.addEventListener('online', function() {
+            showNotification('Connection restored', 'success');
+        });
+
+        window.addEventListener('offline', function() {
+            showNotification('No internet connection', 'error');
+        });
+
+        // Prevent zoom on mobile
+        document.addEventListener('touchstart', function(event) {
+            if (event.touches.length > 1) {
+                event.preventDefault();
+            }
+        });
+
+        // Handle back button for SPA navigation
+        window.addEventListener('popstate', function(event) {
+            // Handle browser back button if needed
+        });
+
+        // Integration placeholders for real APIs
+        class VideoCallManager {
+            constructor() {
+                // Initialize with WebRTC or third-party video API
+                // Example: Agora, Twilio, Jitsi, etc.
+                this.localStream = null;
+                this.remoteStream = null;
+                this.peerConnection = null;
+            }
+
+            async initializeCall() {
+                try {
+                    // Get user media
+                    this.localStream = await navigator.mediaDevices.getUserMedia({
+                        video: true,
+                        audio: true
+                    });
+                    // Setup peer connection
+                    // This is where you'd integrate with your chosen video API
+                } catch (error) {
+                    console.error('Error accessing media devices:', error);
+                    showNotification('Error accessing camera/microphone', 'error');
+                }
+            }
+
+            shareScreen() {
+                // Implement screen sharing
+                return navigator.mediaDevices.getDisplayMedia({ video: true, audio: true });
+            }
+        }
+
+        // Payment Gateway Integration
+        class PaymentManager {
+            static async processUPIPayment(upiId, amount, note) {
+                // Integration with payment gateways like Razorpay, Paytm, etc.
+                // This is a placeholder for real payment processing
+                return new Promise((resolve) => {
+                    setTimeout(() => {
+                        resolve({ success: true, transactionId: 'TXN' + Date.now() });
+                    }, 2000);
+                });
+            }
+
+            static generateQRCode(upiUrl) {
+                // Generate QR code for UPI payment
+                // You can use libraries like qrcode.js
+                return `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(upiUrl)}`;
+            }
+        }
+
+        // Real-time communication setup
+        class RealtimeManager {
+            constructor() {
+                // Initialize WebSocket or Socket.IO for real-time features
+                // this.socket = io(); // if using Socket.IO
+            }
+
+            sendMessage(message) {
+                // Send real-time messages
+                // this.socket.emit('chat_message', message);
+            }
+
+            onMessage(callback) {
+                // Listen for incoming messages
+                // this.socket.on('chat_message', callback);
+            }
+        }
+
+        // Initialize managers
+        const videoManager = new VideoCallManager();
+        const realtimeManager = new RealtimeManager();
+    </script>
+</body>
+</html>
