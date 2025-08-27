@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SkillHive - Share & Learn Skills</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <title>SkillHive - Share Skills, Earn Credits</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -12,361 +13,720 @@
             box-sizing: border-box;
         }
 
+        :root {
+            --primary-blue: #3b82f6;
+            --light-blue: #dbeafe;
+            --primary-yellow: #fbbf24;
+            --light-yellow: #fef3c7;
+            --dark-blue: #1e40af;
+            --text-dark: #1f2937;
+            --text-light: #6b7280;
+            --white: #ffffff;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+        }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: linear-gradient(135deg, var(--light-blue) 0%, var(--light-yellow) 100%);
             min-height: 100vh;
-            overflow-x: hidden;
         }
 
         .container {
-            max-width: 100%;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 0;
+            padding: 0 20px;
         }
 
-        /* Logo Styles */
+        /* Login Page */
+        .login-page {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-yellow) 100%);
+        }
+
+        .login-container {
+            background: var(--white);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            width: 100%;
+            max-width: 450px;
+            text-align: center;
+        }
+
         .logo {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 20px 0;
-            animation: pulse 2s ease-in-out infinite alternate;
-        }
-
-        .logo-icon {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(45deg, #ff6b6b, #feca57);
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-yellow));
             border-radius: 50%;
+            margin: 0 auto 20px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-right: 15px;
-            box-shadow: 0 8px 32px rgba(255, 107, 107, 0.3);
-        }
-
-        .logo-icon i {
-            color: white;
-            font-size: 28px;
-        }
-
-        .logo-text {
             font-size: 32px;
-            font-weight: 800;
-            background: linear-gradient(45deg, #ff6b6b, #feca57);
+            color: var(--white);
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .login-title {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-yellow));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
 
-        @keyframes pulse {
-            from { transform: scale(1); }
-            to { transform: scale(1.05); }
+        .login-subtitle {
+            color: var(--text-light);
+            margin-bottom: 30px;
+            font-size: 16px;
         }
 
-        /* Screen Styles */
-        .screen {
-            display: none;
-            padding: 20px;
-            min-height: 100vh;
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
         }
 
-        .screen.active {
-            display: block;
-        }
-
-        /* Login Screen */
-        .login-screen {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        .login-card {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 40px 30px;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
-            width: 100%;
-            max-width: 400px;
-            backdrop-filter: blur(10px);
-        }
-
-        .input-group {
-            margin: 20px 0;
-        }
-
-        .input-group label {
+        .form-group label {
             display: block;
             margin-bottom: 8px;
             font-weight: 600;
-            color: #333;
+            color: var(--text-dark);
         }
 
-        .input-group input {
+        .form-control {
             width: 100%;
-            padding: 15px;
-            border: 2px solid #e1e5e9;
+            padding: 12px 16px;
+            border: 2px solid var(--gray-200);
             border-radius: 10px;
             font-size: 16px;
             transition: all 0.3s ease;
-            background: rgba(255, 255, 255, 0.9);
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
         }
 
-        .input-group input:focus {
+        .form-control:focus {
             outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .form-control.error {
+            border-color: var(--error);
+        }
+
+        .error-message {
+            color: var(--error);
+            font-size: 13px;
+            margin-top: 5px;
         }
 
         .btn {
             width: 100%;
-            padding: 15px;
+            padding: 14px;
             border: none;
             border-radius: 10px;
             font-size: 16px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            margin: 10px 0;
-            position: relative;
-            overflow: hidden;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
         .btn-primary {
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            color: white;
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+            background: linear-gradient(135deg, var(--primary-blue), var(--dark-blue));
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);
         }
 
         .btn-google {
-            background: #db4437;
-            color: white;
+            background: var(--white);
+            color: var(--text-dark);
+            border: 2px solid var(--gray-200);
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 12px;
         }
 
-        .btn:hover {
+        .btn-google:hover {
+            background: var(--gray-100);
             transform: translateY(-2px);
-            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
         }
 
-        .btn:active {
-            transform: translateY(0);
+        .divider {
+            margin: 25px 0;
+            text-align: center;
+            position: relative;
+            color: var(--text-light);
         }
 
-        /* Dashboard */
-        .dashboard-header {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 20px;
-            border-radius: 15px;
-            margin-bottom: 20px;
-            backdrop-filter: blur(10px);
+        .divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: var(--gray-200);
+            z-index: 0;
+        }
+
+        .divider span {
+            background: var(--white);
+            padding: 0 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .signup-form {
+            display: none;
+        }
+
+        /* Main App */
+        .main-app {
+            display: none;
+        }
+
+        .header {
+            background: var(--white);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
+            padding: 15px 0;
         }
 
-        .user-info h2 {
-            color: white;
-            margin-bottom: 5px;
-        }
-
-        .credits {
-            background: linear-gradient(45deg, #feca57, #ff9ff3);
-            color: white;
-            padding: 10px 20px;
-            border-radius: 25px;
-            font-weight: bold;
+        .nav-logo {
             display: flex;
             align-items: center;
-            gap: 8px;
-            cursor: pointer;
+            gap: 10px;
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary-blue);
+        }
+
+        .nav-logo .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-yellow));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 18px;
         }
 
         .nav-tabs {
             display: flex;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            padding: 5px;
-            margin-bottom: 20px;
-            backdrop-filter: blur(10px);
+            background: var(--gray-100);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
 
         .nav-tab {
-            flex: 1;
-            padding: 15px;
+            padding: 12px 20px;
             text-align: center;
-            border-radius: 10px;
-            color: rgba(255, 255, 255, 0.7);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 600;
-        }
-
-        .nav-tab.active {
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            color: white;
-            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.3);
-        }
-
-        .skill-card, .session-card {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-        }
-
-        .skill-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .skill-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-        .skill-title {
-            font-size: 18px;
-            font-weight: bold;
-            color: #333;
-        }
-
-        .price-tag {
-            background: linear-gradient(45deg, #ff6b6b, #feca57);
-            color: white;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-weight: bold;
-        }
-
-        .skill-description {
-            color: #666;
-            margin-bottom: 15px;
-            line-height: 1.5;
-        }
-
-        .skill-instructor {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-
-        .instructor-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-        }
-
-        .btn-small {
-            padding: 10px 20px;
-            font-size: 14px;
-            border-radius: 20px;
+            background: transparent;
             border: none;
             cursor: pointer;
             font-weight: 600;
+            color: var(--text-light);
             transition: all 0.3s ease;
+            text-decoration: none;
+            font-size: 14px;
         }
 
-        .btn-book {
-            background: linear-gradient(45deg, #48cae4, #0077b6);
-            color: white;
+        .nav-tab:hover {
+            background: var(--gray-200);
         }
 
-        .btn-teach {
-            background: linear-gradient(45deg, #38d9a9, #20bf6b);
-            color: white;
+        .nav-tab.active {
+            background: linear-gradient(45deg, var(--primary-blue), var(--primary-yellow));
+            color: var(--white);
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
         }
 
-        /* Video Call Interface - Enhanced */
-        .video-container {
-            display: grid;
-            grid-template-columns: 1fr 300px;
-            gap: 20px;
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .credits {
+            background: linear-gradient(135deg, var(--primary-yellow), #f59e0b);
+            color: var(--white);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .credits:hover {
+            transform: scale(1.05);
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--light-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--primary-blue);
+        }
+
+        .logout-btn {
+            padding: 8px;
+            border: none;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            color: var(--white);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .logout-btn:hover {
+            background: rgba(255,255,255,0.3);
+            transform: scale(1.1);
+        }
+
+        /* Page Content */
+        .page-content {
+            padding: 40px 0;
+            min-height: calc(100vh - 100px);
+        }
+
+        .page-section {
+            display: none;
+        }
+
+        .page-section.active {
+            display: block;
+        }
+
+        .page-title {
+            font-size: 36px;
+            font-weight: bold;
+            text-align: center;
             margin-bottom: 20px;
-            height: 70vh;
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-yellow));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
-        .main-video {
-            background: #000;
-            border-radius: 15px;
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .video-frame {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .video-placeholder {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            color: white;
+        .page-subtitle {
+            text-align: center;
+            color: var(--text-light);
+            margin-bottom: 40px;
             font-size: 18px;
-            background: linear-gradient(45deg, #667eea, #764ba2);
         }
 
-        .participant-videos {
+        /* Cards */
+        .card {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            margin-bottom: 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+        }
+
+        .skill-card {
+            border-left: 4px solid var(--primary-blue);
+        }
+
+        .skill-card h3 {
+            color: var(--primary-blue);
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
+
+        .skill-meta {
             display: flex;
-            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+            flex-wrap: wrap;
             gap: 10px;
         }
 
-        .participant-video {
-            background: #000;
-            border-radius: 10px;
-            height: 150px;
-            position: relative;
-            overflow: hidden;
+        .skill-price {
+            font-weight: bold;
+            color: var(--success);
+            font-size: 18px;
         }
 
-        .participant-name {
+        .skill-rating {
+            color: var(--warning);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 10px 0;
+        }
+
+        .tag {
+            background: var(--light-blue);
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            color: var(--primary-blue);
+            font-weight: 500;
+        }
+
+        .btn-sm {
+            padding: 8px 16px;
+            font-size: 14px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary-blue);
+            color: var(--primary-blue);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary-blue);
+            color: var(--white);
+            transform: translateY(-1px);
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: var(--white);
+        }
+
+        .btn-success:hover {
+            background: #059669;
+            transform: translateY(-1px);
+        }
+
+        /* Forms */
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .file-upload {
+            border: 2px dashed var(--gray-200);
+            border-radius: 10px;
+            padding: 25px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background-color: var(--gray-100);
+        }
+
+        .file-upload:hover {
+            border-color: var(--primary-blue);
+            background: var(--light-blue);
+        }
+
+        .file-upload input[type="file"] {
+            display: none;
+        }
+
+        /* Video Options */
+        .video-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .video-option {
+            padding: 20px;
+            border: 2px solid var(--gray-200);
+            border-radius: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: var(--white);
+        }
+
+        .video-option:hover {
+            border-color: var(--primary-blue);
+            background: var(--light-blue);
+            transform: translateY(-2px);
+        }
+
+        .video-option.selected {
+            border-color: var(--primary-blue);
+            background: var(--light-blue);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .video-option i {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: var(--primary-blue);
+        }
+
+        /* Session Cards */
+        .session-card {
+            border-left: 4px solid var(--success);
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(59, 130, 246, 0.1));
+        }
+
+        .session-status {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 10px;
+        }
+
+        .status-upcoming {
+            background: var(--primary-blue);
+        }
+
+        .status-completed {
+            background: var(--success);
+        }
+
+        /* Career Analysis */
+        .analysis-card {
+            background: linear-gradient(135deg, var(--light-blue), var(--light-yellow));
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .skill-analysis {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .skill-category {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .skill-category.excellent {
+            border-left: 4px solid var(--success);
+        }
+
+        .skill-category.needs-improvement {
+            border-left: 4px solid var(--warning);
+        }
+
+        .skill-category.learn-immediately {
+            border-left: 4px solid var(--error);
+        }
+
+        .skill-list {
+            list-style: none;
+            margin-top: 10px;
+        }
+
+        .skill-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid var(--gray-200);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .skill-list li:last-child {
+            border-bottom: none;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 35px;
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            animation: modalPop 0.3s ease-out;
+        }
+
+        @keyframes modalPop {
+            from { opacity: 0; transform: scale(0.9) translateY(20px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .modal-close {
             position: absolute;
-            bottom: 8px;
-            left: 8px;
-            background: rgba(0, 0, 0, 0.7);
-            color: white;
-            padding: 4px 8px;
-            border-radius: 4px;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: var(--text-light);
+            transition: color 0.2s ease;
+        }
+
+        .modal-close:hover {
+            color: var(--error);
+        }
+
+        .payment-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .payment-option {
+            padding: 20px;
+            border: 2px solid var(--gray-200);
+            border-radius: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: var(--white);
+        }
+
+        .payment-option:hover {
+            border-color: var(--primary-blue);
+            background: var(--light-blue);
+            transform: translateY(-2px);
+        }
+
+        .payment-option.selected {
+            border-color: var(--primary-blue);
+            background: var(--light-blue);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .payment-option i {
+            font-size: 24px;
+            margin-bottom: 8px;
+            color: var(--primary-blue);
+        }
+
+        /* Video Call Interface */
+        .video-container {
+            background: #000;
+            border-radius: 15px;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 18px;
+            font-weight: 600;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .video-feed {
+            position: absolute;
+            border: 2px solid var(--white);
+            border-radius: 10px;
+            background: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
             font-size: 12px;
         }
 
-        .call-controls {
+        .local-video {
+            top: 15px;
+            right: 15px;
+            width: 120px;
+            height: 80px;
+            background: var(--primary-blue);
+        }
+
+        .remote-video {
+            bottom: 15px;
+            left: 15px;
+            width: 150px;
+            height: 100px;
+            background: #555;
+        }
+
+        .video-controls {
             display: flex;
             justify-content: center;
             gap: 15px;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            backdrop-filter: blur(10px);
+            flex-wrap: wrap;
         }
 
         .control-btn {
@@ -376,1825 +736,1912 @@
             border: none;
             cursor: pointer;
             font-size: 18px;
-            color: white;
-            transition: all 0.3s ease;
-            position: relative;
+            transition: all 0.2s ease;
+        }
+
+        .control-btn.mute {
+            background: var(--error);
+            color: var(--white);
+        }
+
+        .control-btn.active {
+            background: var(--success);
+            color: var(--white);
+        }
+
+        .control-btn.inactive {
+            background: var(--gray-200);
+            color: var(--text-dark);
         }
 
         .control-btn:hover {
             transform: scale(1.1);
         }
 
-        .control-btn.active {
-            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
-        }
-
-        .btn-mic { background: #48cae4; }
-        .btn-camera { background: #38d9a9; }
-        .btn-screen { background: #feca57; }
-        .btn-end { background: #ff6b6b; }
-        .btn-chat { background: #764ba2; }
-        .btn-record { background: #e74c3c; }
-        .btn-participants { background: #9b59b6; }
-
-        /* Google Meet Integration Modal */
-        .meet-modal {
-            display: none;
+        /* Floating Action Button */
+        .floating-btn {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            z-index: 1000;
-            backdrop-filter: blur(5px);
-        }
-
-        .meet-modal.active {
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-yellow));
+            color: var(--white);
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+            z-index: 100;
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
 
-        .meet-content {
-            background: white;
-            padding: 30px;
-            border-radius: 20px;
-            width: 90%;
-            max-width: 500px;
-            text-align: center;
-            animation: modalSlideIn 0.3s ease-out;
+        .floating-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
         }
 
-        /* Chat Sidebar Enhanced */
-        .chat-sidebar {
+        /* Mobile Navigation */
+        .mobile-nav {
+            display: none;
             position: fixed;
-            right: -400px;
-            top: 0;
-            width: 400px;
-            height: 100vh;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            transition: right 0.3s ease;
-            z-index: 999;
-            border-left: 1px solid rgba(255, 255, 255, 0.2);
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+
+        .mobile-nav-items {
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+        }
+
+        .mobile-nav-item {
             display: flex;
             flex-direction: column;
-        }
-
-        .chat-sidebar.open {
-            right: 0;
-        }
-
-        .chat-header {
-            padding: 20px;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-            display: flex;
-            justify-content: space-between;
             align-items: center;
-        }
-
-        .chat-messages {
-            flex: 1;
-            overflow-y: auto;
-            padding: 20px;
-        }
-
-        .chat-message {
-            padding: 12px 16px;
-            margin-bottom: 12px;
-            border-radius: 12px;
-            background: #f8f9fa;
-            position: relative;
-            max-width: 85%;
-        }
-
-        .chat-message.own {
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            color: white;
-            margin-left: auto;
-        }
-
-        .chat-message.system {
-            background: #e9ecef;
-            text-align: center;
-            font-style: italic;
-            max-width: 100%;
-        }
-
-        .message-time {
-            font-size: 10px;
-            opacity: 0.7;
-            margin-top: 4px;
-        }
-
-        .chat-input-container {
-            padding: 20px;
-            border-top: 1px solid rgba(0, 0, 0, 0.1);
-        }
-
-        .chat-input {
-            display: flex;
-            gap: 10px;
-        }
-
-        .chat-input input {
-            flex: 1;
-            padding: 12px 16px;
-            border: 1px solid #ddd;
-            border-radius: 25px;
-            outline: none;
-        }
-
-        .chat-send-btn {
-            padding: 12px 16px;
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            color: white;
-            border: none;
-            border-radius: 25px;
-            cursor: pointer;
-        }
-
-        /* Participants Panel */
-        .participants-panel {
-            position: fixed;
-            right: -300px;
-            top: 0;
-            width: 300px;
-            height: 100vh;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            transition: right 0.3s ease;
-            z-index: 998;
-            padding: 20px;
-            overflow-y: auto;
-        }
-
-        .participants-panel.open {
-            right: 0;
-        }
-
-        .participant-item {
-            display: flex;
-            align-items: center;
-            padding: 12px;
-            border-radius: 8px;
-            margin-bottom: 8px;
-            background: rgba(255, 255, 255, 0.5);
-        }
-
-        .participant-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-            margin-right: 12px;
-        }
-
-        .participant-info {
-            flex: 1;
-        }
-
-        .participant-status {
-            display: flex;
-            gap: 8px;
-        }
-
-        .status-indicator {
-            width: 16px;
-            height: 16px;
-            border-radius: 2px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 10px;
-        }
-
-        .mic-on { background: #38d9a9; color: white; }
-        .mic-off { background: #ff6b6b; color: white; }
-        .cam-on { background: #48cae4; color: white; }
-        .cam-off { background: #999; color: white; }
-
-        /* Recording Indicator */
-        .recording-indicator {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            background: #e74c3c;
-            color: white;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-weight: bold;
-            display: none;
-            z-index: 1002;
-            animation: pulse 1s infinite;
-        }
-
-        .recording-indicator.active {
-            display: block;
-        }
-
-        /* Network Status */
-        .network-status {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: rgba(255, 255, 255, 0.9);
-            padding: 8px 12px;
-            border-radius: 15px;
+            gap: 5px;
+            padding: 10px;
+            text-decoration: none;
+            color: var(--text-light);
+            transition: color 0.3s ease;
             font-size: 12px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            z-index: 1001;
         }
 
-        .network-good { color: #38d9a9; }
-        .network-fair { color: #feca57; }
-        .network-poor { color: #ff6b6b; }
-
-        /* Payment Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            z-index: 1000;
-            backdrop-filter: blur(5px);
+        .mobile-nav-item.active {
+            color: var(--primary-blue);
         }
 
-        .modal.active {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal-content {
-            background: white;
-            padding: 30px;
-            border-radius: 20px;
-            width: 90%;
-            max-width: 400px;
-            text-align: center;
-            animation: modalSlideIn 0.3s ease-out;
-        }
-
-        @keyframes modalSlideIn {
-            from {
-                opacity: 0;
-                transform: translateY(-50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .credit-option {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px;
-            margin: 10px 0;
-            border: 2px solid #e1e5e9;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .credit-option:hover, .credit-option.selected {
-            border-color: #667eea;
-            background: rgba(102, 126, 234, 0.1);
+        .mobile-nav-item i {
+            font-size: 18px;
         }
 
         /* Responsive Design */
         @media (max-width: 768px) {
-            .logo-text {
-                font-size: 24px;
+            .container {
+                padding: 0 15px;
             }
-            
-            .login-card {
-                padding: 30px 20px;
-            }
-            
-            .dashboard-header {
-                flex-direction: column;
-                gap: 15px;
-            }
-            
+
             .nav-tabs {
-                flex-direction: column;
+                display: none;
             }
-            
-            .video-container {
+
+            .mobile-nav {
+                display: block;
+            }
+
+            .page-content {
+                padding-bottom: 100px;
+            }
+
+            .form-row {
                 grid-template-columns: 1fr;
-                height: auto;
             }
 
-            .participant-videos {
-                flex-direction: row;
-                overflow-x: auto;
+            .skill-analysis {
+                grid-template-columns: 1fr;
             }
 
-            .participant-video {
-                min-width: 120px;
-                height: 90px;
+            .payment-options {
+                grid-template-columns: 1fr;
             }
-            
-            .call-controls {
+
+            .nav {
                 flex-wrap: wrap;
                 gap: 10px;
             }
 
-            .chat-sidebar {
-                width: 100vw;
-                right: -100vw;
+            .user-info {
+                order: 3;
+                width: 100%;
+                justify-content: center;
+                margin-top: 15px;
             }
 
-            .participants-panel {
-                width: 100vw;
-                right: -100vw;
+            .video-options {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-content {
+                width: 95%;
+                padding: 25px;
+            }
+
+            .login-container {
+                padding: 30px;
+                margin: 15px;
+            }
+
+            .floating-btn {
+                bottom: 100px;
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
             }
         }
 
-        /* Loading Animation */
+        /* Animations */
+        .fadeIn {
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Loading States */
         .loading {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(255, 255, 255, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid var(--gray-200);
+            border-top: 4px solid var(--primary-blue);
             border-radius: 50%;
-            border-top-color: #fff;
-            animation: spin 1s ease-in-out infinite;
+            animation: spin 1s linear infinite;
         }
 
         @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        /* Status Indicators */
-        .status-online {
-            width: 12px;
-            height: 12px;
-            background: #20bf6b;
-            border-radius: 50%;
-            display: inline-block;
-            margin-left: 5px;
-            box-shadow: 0 0 10px rgba(32, 191, 107, 0.5);
-        }
-
-        .notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: linear-gradient(45deg, #38d9a9, #20bf6b);
-            color: white;
-            padding: 15px 20px;
-            border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            transform: translateX(400px);
-            transition: transform 0.3s ease;
-            z-index: 1003;
-            max-width: 300px;
-        }
-
-        .notification.show {
-            transform: translateX(0);
-        }
-
-        .notification.error {
-            background: linear-gradient(45deg, #ff6b6b, #e74c3c);
-        }
-
-        .notification.warning {
-            background: linear-gradient(45deg, #feca57, #f39c12);
-        }
-
-        .notification.info {
-            background: linear-gradient(45deg, #48cae4, #0077b6);
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Login Screen -->
-        <div id="loginScreen" class="screen active login-screen">
-            <div class="logo">
-                <div class="logo-icon">
-                    <i class="fas fa-hexagon"></i>
-                </div>
-                <div class="logo-text">SkillHive</div>
-            </div>
-            
-            <div class="login-card">
-                <h2 style="text-align: center; margin-bottom: 30px; color: #333;">Welcome to SkillHive</h2>
-                <p style="text-align: center; color: #666; margin-bottom: 30px;">Share your skills, learn from experts</p>
-                
-                <button class="btn btn-google" onclick="loginWithGoogle()">
-                    <i class="fab fa-google"></i>
+    <!-- Login Page -->
+    <div id="loginPage" class="login-page">
+        <div class="login-container">
+            <div class="logo">SH</div>
+            <h1 class="login-title">SkillHive</h1>
+            <p class="login-subtitle">Empower Your Learning. Share Your Expertise.</p>
+
+            <!-- Login Form -->
+            <div id="loginForm">
+                <button class="btn btn-google" onclick="signInWithGoogle()">
+                    <svg width="18" height="18" viewBox="0 0 24 24">
+                        <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                        <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                        <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                        <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                    </svg>
                     Continue with Google
                 </button>
-                
-                <div style="text-align: center; margin: 20px 0; color: #999;">or</div>
-                
-                <div class="input-group">
-                    <label>Email or Username</label>
-                    <input type="text" id="loginUsername" placeholder="Enter your email or username">
-                </div>
-                
-                <div class="input-group">
-                    <label>Password</label>
-                    <input type="password" id="loginPassword" placeholder="Enter your password">
-                </div>
-                
-                <button class="btn btn-primary" onclick="loginWithCredentials()">
-                    Sign In
-                </button>
-                
-                <div style="text-align: center; margin-top: 20px;">
-                    <a href="#" style="color: #667eea; text-decoration: none;" onclick="showSignup()">Don't have an account? Sign up</a>
-                </div>
-            </div>
-        </div>
 
-        <!-- Dashboard Screen -->
-        <div id="dashboardScreen" class="screen">
-            <div class="dashboard-header">
-                <div class="user-info">
-                    <h2 id="userName">Welcome back!</h2>
-                    <p style="color: rgba(255,255,255,0.8);">Ready to learn or teach?</p>
+                <div class="divider"><span>or</span></div>
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" class="form-control" placeholder="Enter your email">
+                    <div class="error-message" id="emailError"></div>
                 </div>
-                <div class="credits" onclick="openPaymentModal()">
-                    <i class="fas fa-coins"></i>
-                    <span id="userCredits">150</span> Credits
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" class="form-control" placeholder="Enter your password">
+                    <div class="error-message" id="passwordError"></div>
                 </div>
+
+                <button class="btn btn-primary" onclick="handleLogin()">Sign In</button>
+
+                <p style="margin-top: 20px; color: var(--text-light); text-align: center;">
+                    Don't have an account? <a href="#" onclick="showSignUp()" style="color: var(--primary-blue); text-decoration: none;">Sign Up</a>
+                </p>
             </div>
 
-            <div class="nav-tabs">
-                <div class="nav-tab active" onclick="showTab('learn')">
-                    <i class="fas fa-graduation-cap"></i> Learn
-                </div>
-                <div class="nav-tab" onclick="showTab('teach')">
-                    <i class="fas fa-chalkboard-teacher"></i> Teach
-                </div>
-                <div class="nav-tab" onclick="showTab('sessions')">
-                    <i class="fas fa-calendar"></i> My Sessions
-                </div>
-            </div>
-
-            <!-- Learn Tab -->
-            <div id="learnTab" class="tab-content">
-                <div class="skill-card">
-                    <div class="skill-header">
-                        <h3 class="skill-title">Advanced JavaScript & React</h3>
-                        <div class="price-tag">25 Credits</div>
-                    </div>
-                    <div class="skill-description">
-                        Master modern JavaScript ES6+ features and build dynamic React applications. Perfect for beginners to intermediate developers.
-                    </div>
-                    <div class="skill-instructor">
-                        <div class="instructor-avatar">AK</div>
-                        <div>
-                            <div style="font-weight: bold;">Arjun Kumar</div>
-                            <div style="font-size: 12px; color: #999;">Senior Developer <span class="status-online"></span></div>
-                        </div>
-                    </div>
-                    <button class="btn-small btn-book" onclick="bookSession('js-react', 25, 'Arjun Kumar')">
-                        <i class="fas fa-video"></i> Book Session
-                    </button>
+            <!-- Signup Form -->
+            <div id="signupForm" class="signup-form">
+                <div class="form-group">
+                    <label for="signupName">Full Name</label>
+                    <input type="text" id="signupName" class="form-control" placeholder="Enter your full name">
+                    <div class="error-message" id="nameError"></div>
                 </div>
 
-                <div class="skill-card">
-                    <div class="skill-header">
-                        <h3 class="skill-title">Digital Marketing Mastery</h3>
-                        <div class="price-tag">20 Credits</div>
-                    </div>
-                    <div class="skill-description">
-                        Learn SEO, social media marketing, content strategy, and PPC advertising from industry experts.
-                    </div>
-                    <div class="skill-instructor">
-                        <div class="instructor-avatar">PS</div>
-                        <div>
-                            <div style="font-weight: bold;">Priya Sharma</div>
-                            <div style="font-size: 12px; color: #999;">Marketing Director <span class="status-online"></span></div>
-                        </div>
-                    </div>
-                    <button class="btn-small btn-book" onclick="bookSession('digital-marketing', 20, 'Priya Sharma')">
-                        <i class="fas fa-video"></i> Book Session
-                    </button>
+                <div class="form-group">
+                    <label for="signupUsername">Username</label>
+                    <input type="text" id="signupUsername" class="form-control" placeholder="Choose a username">
+                    <div class="error-message" id="usernameError"></div>
                 </div>
 
-                <div class="skill-card">
-                    <div class="skill-header">
-                        <h3 class="skill-title">Guitar for Beginners</h3>
-                        <div class="price-tag">15 Credits</div>
-                    </div>
-                    <div class="skill-description">
-                        Start your musical journey! Learn basic chords, strumming patterns, and play your first songs.
-                    </div>
-                    <div class="skill-instructor">
-                        <div class="instructor-avatar">RV</div>
-                        <div>
-                            <div style="font-weight: bold;">Rahul Verma</div>
-                            <div style="font-size: 12px; color: #999;">Music Teacher <span class="status-online"></span></div>
-                        </div>
-                    </div>
-                    <button class="btn-small btn-book" onclick="bookSession('guitar', 15, 'Rahul Verma')">
-                        <i class="fas fa-video"></i> Book Session
-                    </button>
-                </div>
-            </div>
-
-            <!-- Teach Tab -->
-            <div id="teachTab" class="tab-content" style="display: none;">
-                <div style="text-align: center; padding: 40px 20px; background: rgba(255,255,255,0.1); border-radius: 15px; margin-bottom: 20px;">
-                    <h3 style="color: white; margin-bottom: 15px;">Share Your Expertise</h3>
-                    <p style="color: rgba(255,255,255,0.8); margin-bottom: 20px;">Earn credits by teaching what you know best</p>
-                    <button class="btn btn-primary" onclick="showCreateListingForm()">
-                        <i class="fas fa-plus"></i> Create New Skill Listing
-                    </button>
+                <div class="form-group">
+                    <label for="signupEmail">Email</label>
+                    <input type="email" id="signupEmail" class="form-control" placeholder="Enter your email">
+                    <div class="error-message" id="signupEmailError"></div>
                 </div>
 
-                <!-- Create Listing Form -->
-                <div id="createListingForm" class="skill-card" style="display: none;">
-                    <div class="skill-header">
-                        <h3 class="skill-title">Create New Skill Listing</h3>
-                        <button onclick="hideCreateListingForm()" style="background: none; border: none; font-size: 20px; cursor: pointer; color: #999;">×</button>
-                    </div>
-                    
-                    <div class="input-group">
-                        <label>Skill Title *</label>
-                        <input type="text" id="skillTitle" placeholder="e.g., Advanced Python Programming">
-                    </div>
-                    
-                    <div class="input-group">
-                        <label>Category *</label>
-                        <select id="skillCategory" style="width: 100%; padding: 15px; border: 2px solid #e1e5e9; border-radius: 10px; font-size: 16px; background: white;">
-                            <option value="">Select a category</option>
-                            <option value="programming">Programming & Tech</option>
-                            <option value="design">Design & Creative</option>
-                            <option value="business">Business & Marketing</option>
-                            <option value="music">Music & Arts</option>
-                            <option value="language">Languages</option>
-                            <option value="fitness">Health & Fitness</option>
-                            <option value="cooking">Cooking & Lifestyle</option>
-                            <option value="other">Other</option>
-                        </select>
-                    </div>
-                    
-                    <div class="input-group">
-                        <label>Description *</label>
-                        <textarea id="skillDescription" placeholder="Describe what students will learn, your experience, and what makes your teaching unique..." style="width: 100%; padding: 15px; border: 2px solid #e1e5e9; border-radius: 10px; font-size: 16px; min-height: 100px; resize: vertical; background: white;"></textarea>
-                    </div>
-                    
-                    <div style="display: flex; gap: 15px;">
-                        <div class="input-group" style="flex: 1;">
-                            <label>Session Duration</label>
-                            <select id="sessionDuration" style="width: 100%; padding: 15px; border: 2px solid #e1e5e9; border-radius: 10px; font-size: 16px; background: white;">
-                                <option value="30">30 minutes</option>
-                                <option value="60" selected>1 hour</option>
-                                <option value="90">1.5 hours</option>
-                                <option value="120">2 hours</option>
-                            </select>
-                        </div>
-                        
-                        <div class="input-group" style="flex: 1;">
-                            <label>Price (Credits) *</label>
-                            <input type="number" id="skillPrice" placeholder="20" min="5" max="100">
-                        </div>
-                    </div>
-                    
-                    <div class="input-group">
-                        <label>Your Experience Level</label>
-                        <select id="experienceLevel" style="width: 100%; padding: 15px; border: 2px solid #e1e5e9; border-radius: 10px; font-size: 16px; background: white;">
-                            <option value="beginner">Beginner (1-2 years)</option>
-                            <option value="intermediate">Intermediate (3-5 years)</option>
-                            <option value="advanced">Advanced (5+ years)</option>
-                            <option value="expert">Expert (10+ years)</option>
-                        </select>
-                    </div>
-                    
-                    <div class="input-group">
-                        <label>Available Time Slots</label>
-                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; margin-top: 10px;">
-                            <label style="display: flex; align-items: center; gap: 8px; font-weight: normal; cursor: pointer;">
-                                <input type="checkbox" value="morning"> Morning (9AM-12PM)
-                            </label>
-                            <label style="display: flex; align-items: center; gap: 8px; font-weight: normal; cursor: pointer;">
-                                <input type="checkbox" value="afternoon"> Afternoon (12PM-5PM)
-                            </label>
-                            <label style="display: flex; align-items: center; gap: 8px; font-weight: normal; cursor: pointer;">
-                                <input type="checkbox" value="evening"> Evening (5PM-9PM)
-                            </label>
-                            <label style="display: flex; align-items: center; gap: 8px; font-weight: normal; cursor: pointer;">
-                                <input type="checkbox" value="night"> Night (9PM-12AM)
-                            </label>
-                        </div>
-                    </div>
-                    
-                    <div style="display: flex; gap: 10px; margin-top: 20px;">
-                        <button class="btn btn-primary" onclick="submitSkillListing()" style="flex: 1;">
-                            <i class="fas fa-check"></i> Create Listing
-                        </button>
-                        <button class="btn" onclick="hideCreateListingForm()" style="flex: 1; background: #f8f9fa; color: #333;">
-                            Cancel
-                        </button>
-                    </div>
+                <div class="form-group">
+                    <label for="signupPassword">Password</label>
+                    <input type="password" id="signupPassword" class="form-control" placeholder="Create a password (min 6 characters)">
+                    <div class="error-message" id="signupPasswordError"></div>
                 </div>
 
-                <!-- Active Listings -->
-                <div class="skill-card">
-                    <div class="skill-header">
-                        <h3 class="skill-title">Your Active Listings</h3>
-                        <span id="listingsCount" style="background: rgba(102, 126, 234, 0.1); color: #667eea; padding: 5px 15px; border-radius: 20px; font-size: 14px;">0 Active</span>
-                    </div>
-                    <div id="activeListings">
-                        <div id="noListingsMsg" style="color: #666; text-align: center; padding: 20px;">
-                            No active listings yet. Create your first skill listing to start earning!
-                        </div>
-                    </div>
-                </div>
+                <button class="btn btn-primary" onclick="handleSignup()">Sign Up</button>
 
-                <!-- Earnings Summary -->
-                <div class="skill-card">
-                    <div class="skill-header">
-                        <h3 class="skill-title">Earnings Summary</h3>
-                        <div style="display: flex; gap: 15px; align-items: center;">
-                            <div style="text-align: center;">
-                                <div style="font-size: 24px; font-weight: bold; color: #38d9a9;" id="totalEarnings">0</div>
-                                <div style="font-size: 12px; color: #999;">Credits Earned</div>
-                            </div>
-                            <div style="text-align: center;">
-                                <div style="font-size: 24px; font-weight: bold; color: #667eea;" id="totalSessions">0</div>
-                                <div style="font-size: 12px; color: #999;">Sessions Completed</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div style="color: #666; padding: 10px 0;">
-                        <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
-                            <span>This Month:</span>
-                            <span style="font-weight: bold; color: #38d9a9;">+0 credits</span>
-                        </div>
-                        <div style="display: flex; justify-content: space-between;">
-                            <span>Average Rating:</span>
-                            <span style="font-weight: bold; color: #feca57;">
-                                <i class="fas fa-star"></i> N/A
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Sessions Tab -->
-            <div id="sessionsTab" class="tab-content" style="display: none;">
-                <div class="session-card">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-                        <h3>Upcoming: JavaScript Session</h3>
-                        <span style="background: #38d9a9; color: white; padding: 5px 10px; border-radius: 15px; font-size: 12px;">Confirmed</span>
-                    </div>
-                    <div style="color: #666; margin-bottom: 10px;">
-                        <i class="fas fa-calendar"></i> Today, 3:00 PM - 4:00 PM
-                    </div>
-                    <div style="color: #666; margin-bottom: 15px;">
-                        <i class="fas fa-user"></i> with Arjun Kumar
-                    </div>
-                    <button class="btn-small btn-book" onclick="showMeetOptions('session-1', 'JavaScript Session', 'Arjun Kumar')">
-                        <i class="fas fa-video"></i> Join Session
-                    </button>
-                </div>
-
-                <div class="session-card">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-                        <h3>Past: Digital Marketing</h3>
-                        <span style="background: #999; color: white; padding: 5px 10px; border-radius: 15px; font-size: 12px;">Completed</span>
-                    </div>
-                    <div style="color: #666; margin-bottom: 10px;">
-                        <i class="fas fa-calendar"></i> Yesterday, 2:00 PM - 3:00 PM
-                    </div>
-                    <div style="color: #666; margin-bottom: 15px;">
-                        <i class="fas fa-user"></i> with Priya Sharma
-                    </div>
-                    <div style="color: #38d9a9; font-weight: bold;">
-                        <i class="fas fa-star"></i> Session Completed - 20 Credits Deducted
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Video Call Screen -->
-        <div id="videoCallScreen" class="screen">
-            <div class="video-container">
-                <div class="main-video">
-                    <div class="video-placeholder" id="mainVideoArea">
-                        <div style="text-align: center;">
-                            <i class="fas fa-video" style="font-size: 48px; margin-bottom: 15px; display: block;"></i>
-                            <div id="callStatus">Connecting to video call...</div>
-                            <div style="font-size: 14px; margin-top: 10px; opacity: 0.7;" id="sessionInfo">JavaScript Session with Arjun</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="participant-videos">
-                    <div class="participant-video">
-                        <div class="video-placeholder" style="background: #2c3e50; font-size: 14px;">
-                            <i class="fas fa-user" style="font-size: 24px; margin-bottom: 8px; display: block;"></i>
-                            You
-                        </div>
-                        <div class="participant-name">You (Muted)</div>
-                    </div>
-                    
-                    <div class="participant-video">
-                        <div class="video-placeholder" style="background: #27ae60; font-size: 14px;">
-                            <i class="fas fa-user" style="font-size: 24px; margin-bottom: 8px; display: block;"></i>
-                            Instructor
-                        </div>
-                        <div class="participant-name" id="instructorName">Arjun Kumar</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="call-controls">
-                <button class="control-btn btn-mic" onclick="toggleMic()" title="Mute/Unmute" id="micBtn">
-                    <i class="fas fa-microphone-slash" id="micIcon"></i>
-                </button>
-                <button class="control-btn btn-camera" onclick="toggleCamera()" title="Camera On/Off" id="cameraBtn">
-                    <i class="fas fa-video-slash" id="cameraIcon"></i>
-                </button>
-                <button class="control-btn btn-screen" onclick="shareScreen()" title="Share Screen">
-                    <i class="fas fa-desktop"></i>
-                </button>
-                <button class="control-btn btn-record" onclick="toggleRecording()" title="Record Session" id="recordBtn">
-                    <i class="fas fa-record-vinyl"></i>
-                </button>
-                <button class="control-btn btn-participants" onclick="toggleParticipants()" title="Participants">
-                    <i class="fas fa-users"></i>
-                </button>
-                <button class="control-btn btn-chat" onclick="toggleChat()" title="Chat">
-                    <i class="fas fa-comments"></i>
-                </button>
-                <button class="control-btn btn-end" onclick="endCall()" title="End Call">
-                    <i class="fas fa-phone-slash"></i>
-                </button>
-            </div>
-
-            <div style="text-align: center; margin-top: 20px;">
-                <button class="btn btn-primary" onclick="goToDashboard()">
-                    <i class="fas fa-arrow-left"></i> Back to Dashboard
-                </button>
+                <p style="margin-top: 20px; color: var(--text-light); text-align: center;">
+                    Already have an account? <a href="#" onclick="showLogin()" style="color: var(--primary-blue); text-decoration: none;">Sign In</a>
+                </p>
             </div>
         </div>
     </div>
 
-    <!-- Google Meet Options Modal -->
-    <div id="meetModal" class="meet-modal">
-        <div class="meet-content">
-            <h3 style="margin-bottom: 20px; color: #333;">Join Video Session</h3>
-            <p style="color: #666; margin-bottom: 20px;" id="sessionDetails">JavaScript Session with Arjun Kumar</p>
-            
-            <div style="display: flex; flex-direction: column; gap: 15px;">
-                <button class="btn btn-primary" onclick="joinGoogleMeet()" style="display: flex; align-items: center; justify-content: center; gap: 10px;">
-                    <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyIDJDNi40OCAyIDIgNi40OCAyIDEyUzYuNDggMjIgMTIgMjJTMjIgMTcuNTIgMjIgMTJTMTcuNTIgMiAxMiAyWk0xNy4wNyA5LjkzTDE0IDE2SDEwTDYuOTMgOS45M0MxMC44NSA1LjQ3IDE1LjE1IDUuNDcgMTcuMDcgOS45M1oiIGZpbGw9IndoaXRlIi8+Cjwvc3ZnPgo=" style="width: 20px; height: 20px;">
-                    Join with Google Meet
-                </button>
-                
-                <button class="btn" onclick="joinBuiltInCall()" style="background: linear-gradient(45deg, #48cae4, #0077b6); color: white; display: flex; align-items: center; justify-content: center; gap: 10px;">
-                    <i class="fas fa-video"></i>
-                    Use Built-in Video Call
-                </button>
-                
-                <div style="padding: 15px; background: #f8f9fa; border-radius: 10px; font-size: 14px; color: #666;">
-                    <div style="margin-bottom: 10px;"><strong>Session Details:</strong></div>
-                    <div>Duration: 1 hour</div>
-                    <div>Credits: Will be deducted after session</div>
-                </div>
+    <!-- Main App -->
+    <div id="mainApp" class="main-app">
+        <!-- Header -->
+        <header class="header">
+            <div class="container">
+                <nav class="nav">
+                    <div class="nav-logo">
+                        <div class="logo-icon">SH</div>
+                        SkillHive
+                    </div>
+                    <div class="nav-tabs">
+                        <a href="#" class="nav-tab active" onclick="showSection('dashboard')">Dashboard</a>
+                        <a href="#" class="nav-tab" onclick="showSection('learn')">Learn</a>
+                        <a href="#" class="nav-tab" onclick="showSection('teach')">Teach</a>
+                        <a href="#" class="nav-tab" onclick="showSection('sessions')">Sessions</a>
+                        <a href="#" class="nav-tab" onclick="showSection('career')">Career</a>
+                    </div>
+                    <div class="user-info">
+                        <div class="credits" onclick="showPaymentModal()">
+                            <i class="fas fa-coins"></i> <span id="userCredits">0</span> Credits
+                        </div>
+                        <div class="user-avatar" id="userAvatar">U</div>
+                        <button class="logout-btn" onclick="logout()" title="Logout">
+                            <i class="fas fa-sign-out-alt"></i>
+                        </button>
+                    </div>
+                </nav>
             </div>
-            
-            <div style="display: flex; gap: 10px; margin-top: 20px;">
-                <button class="btn" onclick="closeMeetModal()" style="flex: 1; background: #f8f9fa; color: #333;">
-                    Cancel
-                </button>
+        </header>
+
+        <!-- Page Content -->
+        <main class="page-content">
+            <div class="container">
+                <!-- Dashboard Section -->
+                <section id="dashboard" class="page-section active fadeIn">
+                    <h1 class="page-title">Welcome to SkillHive</h1>
+                    <p class="page-subtitle">Your gateway to unlimited skill sharing and learning</p>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+                        <div class="card">
+                            <h3><i class="fas fa-graduation-cap"></i> Learn New Skills</h3>
+                            <p>Browse thousands of skills taught by experts worldwide. From programming to cooking, find your passion.</p>
+                            <button class="btn btn-primary" onclick="showSection('learn')">Explore Skills</button>
+                        </div>
+                        <div class="card">
+                            <h3><i class="fas fa-chalkboard-teacher"></i> Teach & Earn</h3>
+                            <p>Share your expertise with others and earn credits. Turn your knowledge into rewards.</p>
+                            <button class="btn btn-primary" onclick="showSection('teach')">Start Teaching</button>
+                        </div>
+                        <div class="card">
+                            <h3><i class="fas fa-briefcase"></i> Career Growth</h3>
+                            <p>Analyze job requirements and get personalized skill recommendations for your career goals.</p>
+                            <button class="btn btn-primary" onclick="showSection('career')">Analyze Career</button>
+                        </div>
+                        <div class="card">
+                            <h3><i class="fas fa-video"></i> Video Learning</h3>
+                            <p>Join live one-on-one sessions with built-in video calls or use your preferred platform.</p>
+                            <button class="btn btn-primary" onclick="showSection('sessions')">My Sessions</button>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 40px;">
+                        <h2 style="text-align: center; margin-bottom: 30px; color: var(--text-dark);">Featured Skills</h2>
+                        <div id="featuredSkills" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+                            <!-- Featured skills will be loaded here -->
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Learn Section -->
+                <section id="learn" class="page-section">
+                    <h1 class="page-title">Learn Skills</h1>
+                    <p class="page-subtitle">Discover and book one-on-one learning sessions</p>
+
+                    <div class="card">
+                        <h3><i class="fas fa-search"></i> Find Your Perfect Skill</h3>
+                        <div class="form-row">
+                            <input type="text" class="form-control" placeholder="Search skills..." id="skillSearch" onkeyup="filterSkills()">
+                            <select class="form-control" id="categoryFilter" onchange="filterSkills()">
+                                <option value="">All Categories</option>
+                                <option value="programming">Programming</option>
+                                <option value="design">Design</option>
+                                <option value="business">Business</option>
+                                <option value="marketing">Marketing</option>
+                                <option value="music">Music</option>
+                                <option value="language">Languages</option>
+                            </select>
+                        </div>
+                        <div class="form-row">
+                            <select class="form-control" id="priceFilter" onchange="filterSkills()">
+                                <option value="">All Prices</option>
+                                <option value="0-20">0-20 Credits</option>
+                                <option value="21-50">21-50 Credits</option>
+                                <option value="51-100">51+ Credits</option>
+                            </select>
+                            <select class="form-control" id="sortBy" onchange="filterSkills()">
+                                <option value="rating">Sort by Rating</option>
+                                <option value="price">Sort by Price</option>
+                                <option value="recent">Most Recent</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div id="skillsList">
+                        <!-- Skills will be populated here -->
+                    </div>
+                </section>
+
+                <!-- Teach Section -->
+                <section id="teach" class="page-section">
+                    <h1 class="page-title">Teach & Earn</h1>
+                    <p class="page-subtitle">Share your expertise and earn credits</p>
+
+                    <div class="card">
+                        <h3><i class="fas fa-plus-circle"></i> Create New Skill Session</h3>
+                        <form id="teachForm" onsubmit="createSkillSession(event)">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Skill Title</label>
+                                    <input type="text" id="skillTitle" class="form-control" placeholder="e.g., JavaScript Fundamentals" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Category</label>
+                                    <select id="skillCategory" class="form-control" required>
+                                        <option value="">Select Category</option>
+                                        <option value="programming">Programming</option>
+                                        <option value="design">Design</option>
+                                        <option value="business">Business</option>
+                                        <option value="marketing">Marketing</option>
+                                        <option value="music">Music</option>
+                                        <option value="language">Languages</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Description</label>
+                                <textarea id="skillDescription" class="form-control textarea" placeholder="Describe what you'll teach and what students will learn..." required></textarea>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Credits Required</label>
+                                    <input type="number" id="skillCredits" class="form-control" min="1" placeholder="25" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Session Duration (Hours)</label>
+                                    <input type="number" id="skillDuration" class="form-control" min="0.5" max="8" step="0.5" placeholder="2" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Tags (comma separated)</label>
+                                <input type="text" id="skillTags" class="form-control" placeholder="javascript, coding, web development">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Video Conferencing Option</label>
+                                <div class="video-options">
+                                    <div class="video-option" onclick="selectVideoOption('builtin')">
+                                        <i class="fas fa-video"></i>
+                                        <h4>Built-in Video Call</h4>
+                                        <p>Use our integrated video system</p>
+                                    </div>
+                                    <div class="video-option" onclick="selectVideoOption('googlemeet')">
+                                        <i class="fab fa-google"></i>
+                                        <h4>Google Meet</h4>
+                                        <p>Use your custom Google Meet link</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group" id="meetLinkGroup" style="display: none;">
+                                <label>Google Meet Link</label>
+                                <input type="url" id="customMeetLink" class="form-control" placeholder="https://meet.google.com/xxx-xxxx-xxx">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Prerequisites</label>
+                                <input type="text" id="skillPrerequisites" class="form-control" placeholder="Basic HTML/CSS knowledge, Programming fundamentals...">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Certification Recommendations (Optional)</label>
+                                <textarea id="certificationRecs" class="form-control" placeholder="Recommend official certifications or courses students can take after completing this skill..."></textarea>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Create Skill Session</button>
+                        </form>
+                    </div>
+
+                    <div class="card">
+                        <h3><i class="fas fa-list-ul"></i> My Teaching Sessions</h3>
+                        <div id="myTeachingList">
+                            <p style="text-align: center; color: var(--text-light); font-style: italic;">
+                                No teaching sessions created yet. Create your first skill above!
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3><i class="fas fa-microphone-alt"></i> Mock Interview Sessions</h3>
+                        <p>Offer mock interviews for specific skills or general career guidance. Help others prepare for their dream jobs!</p>
+                        <button class="btn btn-primary" onclick="createMockInterviewListing()">Create Mock Interview Session</button>
+                    </div>
+                </section>
+
+                <!-- My Sessions Section -->
+                <section id="sessions" class="page-section">
+                    <h1 class="page-title">My Sessions</h1>
+                    <p class="page-subtitle">Manage your learning and teaching sessions</p>
+
+                    <div class="card">
+                        <h3><i class="fas fa-graduation-cap"></i> My Learning Sessions</h3>
+                        <div id="learningSessionsList">
+                            <p style="text-align: center; color: var(--text-light); font-style: italic;">
+                                No learning sessions booked yet. <a href="#" onclick="showSection('learn')" style="color: var(--primary-blue);">Browse skills</a> to book your first session.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3><i class="fas fa-chalkboard-teacher"></i> My Teaching Schedule</h3>
+                        <div id="teachingScheduleList">
+                            <p style="text-align: center; color: var(--text-light); font-style: italic;">
+                                No students have booked your sessions yet. Create more skills to attract learners!
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Career Section -->
+                <section id="career" class="page-section">
+                    <h1 class="page-title">AI Career Analysis</h1>
+                    <p class="page-subtitle">Get personalized insights for your career growth powered by AI</p>
+
+                    <div class="analysis-card">
+                        <h3><i class="fas fa-robot"></i> AI Career Analyzer</h3>
+                        <p>Upload your resume and paste job requirements to get personalized skill recommendations. Our AI will analyze the gap between your skills and job requirements.</p>
+                        
+                        <form id="careerForm" onsubmit="analyzeCareer(event)">
+                            <div class="form-group">
+                                <label>Job Requirements</label>
+                                <textarea class="form-control textarea" id="jobRequirements" placeholder="Paste the job description and requirements here..." required></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Upload Resume</label>
+                                <div class="file-upload" onclick="document.getElementById('resumeFile').click()">
+                                    <i class="fas fa-cloud-upload-alt fa-2x" style="color: var(--primary-blue); margin-bottom: 10px;"></i>
+                                    <p><strong>Click to upload your resume</strong></p>
+                                    <small>Supported formats: PDF, DOC, DOCX (Max 5MB)</small>
+                                    <input type="file" id="resumeFile" accept=".pdf,.doc,.docx" style="display: none;" onchange="handleResumeUpload()">
+                                    <div id="resumeFileName" style="margin-top: 10px; font-weight: 500; color: var(--primary-blue);"></div>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-brain"></i> Analyze Career Match
+                            </button>
+                        </form>
+
+                        <div style="background: var(--light-blue); border-radius: 10px; padding: 20px; margin-top: 20px;">
+                            <h4><i class="fas fa-info-circle"></i> How Our AI Works</h4>
+                            <p>Our AI uses advanced natural language processing to parse your resume and job requirements, identifying key skills and competencies. It performs semantic analysis to highlight gaps and suggests relevant learning paths based on industry data.</p>
+                        </div>
+                    </div>
+
+                    <div id="analysisResults" style="display: none;">
+                        <h3>AI Analysis Results</h3>
+                        <div class="skill-analysis">
+                            <div class="skill-category excellent">
+                                <h4><i class="fas fa-check-circle"></i> Skills Up to the Mark</h4>
+                                <ul class="skill-list" id="excellentSkills">
+                                    <!-- Populated by AI analysis -->
+                                </ul>
+                            </div>
+
+                            <div class="skill-category needs-improvement">
+                                <h4><i class="fas fa-exclamation-triangle"></i> Skills Needing Improvement</h4>
+                                <ul class="skill-list" id="improvementSkills">
+                                    <!-- Populated by AI analysis -->
+                                </ul>
+                            </div>
+
+                            <div class="skill-category learn-immediately">
+                                <h4><i class="fas fa-times-circle"></i> Skills to Learn Immediately</h4>
+                                <ul class="skill-list" id="learnSkills">
+                                    <!-- Populated by AI analysis -->
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="card" style="margin-top: 30px;">
+                            <h3><i class="fas fa-lightbulb"></i> Personalized Recommendations</h3>
+                            <div id="recommendations">
+                                <!-- AI recommendations will be populated here -->
+                            </div>
+                        </div>
+                    </div>
+                </section>
             </div>
-        </div>
+        </main>
+
+        <!-- Mobile Navigation -->
+        <nav class="mobile-nav">
+            <div class="mobile-nav-items">
+                <a href="#" class="mobile-nav-item active" onclick="showSection('dashboard')">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </a>
+                <a href="#" class="mobile-nav-item" onclick="showSection('learn')">
+                    <i class="fas fa-graduation-cap"></i>
+                    <span>Learn</span>
+                </a>
+                <a href="#" class="mobile-nav-item" onclick="showSection('teach')">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                    <span>Teach</span>
+                </a>
+                <a href="#" class="mobile-nav-item" onclick="showSection('sessions')">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>Sessions</span>
+                </a>
+                <a href="#" class="mobile-nav-item" onclick="showSection('career')">
+                    <i class="fas fa-briefcase"></i>
+                    <span>Career</span>
+                </a>
+            </div>
+        </nav>
+
+        <!-- Floating Action Button -->
+        <button class="floating-btn" onclick="showPaymentModal()" title="Buy Credits">
+            <i class="fas fa-coins"></i>
+        </button>
     </div>
 
     <!-- Payment Modal -->
     <div id="paymentModal" class="modal">
         <div class="modal-content">
-            <h3 style="margin-bottom: 20px;">Buy Credits</h3>
-            <p style="color: #666; margin-bottom: 20px;">Select the number of credits to purchase</p>
-            
-            <div class="credit-option" onclick="selectCreditPack(10, 100)">
-                <div>
-                    <div style="font-weight: bold;">10 Credits</div>
-                    <div style="font-size: 12px; color: #999;">Perfect for 1-2 sessions</div>
+            <button class="modal-close" onclick="closeModal('paymentModal')">&times;</button>
+            <h2><i class="fas fa-credit-card"></i> Buy Credits</h2>
+            <p>Each credit costs ₹10. Select a package or enter a custom amount.</p>
+
+            <div class="payment-options">
+                <div class="payment-option" onclick="selectCreditPackage(10, 100)">
+                    <i class="fas fa-star"></i>
+                    <h4>10 Credits</h4>
+                    <p>₹100</p>
                 </div>
-                <div style="font-weight: bold; color: #667eea;">₹100</div>
-            </div>
-            
-            <div class="credit-option" onclick="selectCreditPack(25, 225)">
-                <div>
-                    <div style="font-weight: bold;">25 Credits</div>
-                    <div style="font-size: 12px; color: #999;">Save ₹25! Most popular</div>
+                <div class="payment-option" onclick="selectCreditPackage(25, 250)">
+                    <i class="fas fa-fire"></i>
+                    <h4>25 Credits</h4>
+                    <p>₹250</p>
                 </div>
-                <div style="font-weight: bold; color: #667eea;">₹225</div>
-            </div>
-            
-            <div class="credit-option" onclick="selectCreditPack(50, 400)">
-                <div>
-                    <div style="font-weight: bold;">50 Credits</div>
-                    <div style="font-size: 12px; color: #999;">Save ₹100! Best value</div>
+                <div class="payment-option" onclick="selectCreditPackage(50, 500)">
+                    <i class="fas fa-crown"></i>
+                    <h4>50 Credits</h4>
+                    <p>₹500</p>
                 </div>
-                <div style="font-weight: bold; color: #667eea;">₹400</div>
+            </div>
+
+            <div class="form-group">
+                <label>Credits to Buy</label>
+                <input type="number" id="creditAmount" class="form-control" min="1" value="10" onchange="updatePaymentAmount()">
+            </div>
+
+            <div class="form-group">
+                <label>Total Amount: ₹<span id="totalAmount">100</span></label>
+            </div>
+
+            <div class="form-group">
+                <label>Payment Method</label>
+                <div class="payment-options">
+                    <div class="payment-option selected" onclick="selectPaymentMethod('upi')">
+                        <i class="fas fa-mobile-alt"></i>
+                        <h4>UPI</h4>
+                    </div>
+                    <div class="payment-option" onclick="selectPaymentMethod('card')">
+                        <i class="fas fa-credit-card"></i>
+                        <h4>Card</h4>
+                    </div>
+                    <div class="payment-option" onclick="selectPaymentMethod('wallet')">
+                        <i class="fas fa-wallet"></i>
+                        <h4>Wallet</h4>
+                    </div>
+                </div>
+            </div>
+
+            <div id="upiDetails" class="form-group">
+                <label>UPI ID</label>
+                <input type="text" class="form-control" value="9506344448@slc" readonly>
+                <small style="color: var(--text-light);">Send payment to this UPI ID. Credits will be added after verification.</small>
+            </div>
+
+            <div id="cardDetails" class="form-group" style="display: none;">
+                <div class="form-row">
+                    <input type="text" class="form-control" placeholder="Card Number" maxlength="19">
+                    <input type="text" class="form-control" placeholder="MM/YY" maxlength="5">
+                </div>
+                <div class="form-row">
+                    <input type="text" class="form-control" placeholder="CVV" maxlength="3">
+                    <input type="text" class="form-control" placeholder="Name on Card">
+                </div>
+            </div>
+
+            <button class="btn btn-primary" onclick="processPayment()">
+                <i class="fas fa-lock"></i> Pay ₹<span id="payAmount">100</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Video Call Modal -->
+    <div id="videoCallModal" class="modal">
+        <div class="modal-content" style="width: 95%; max-width: 800px; height: 90vh;">
+            <button class="modal-close" onclick="closeModal('videoCallModal')">&times;</button>
+            <h2><i class="fas fa-video"></i> Video Learning Session</h2>
+            
+            <div class="video-container">
+                <div class="video-feed local-video">You</div>
+                <div class="video-feed remote-video">Instructor</div>
+                <div style="color: #ccc; text-align: center;">
+                    <i class="fas fa-video fa-3x" style="margin-bottom: 20px;"></i>
+                    <h3>Connecting to session...</h3>
+                    <p>Please wait while we connect you to your instructor</p>
+                </div>
             </div>
             
-            <div style="margin: 20px 0;">
-                <div id="selectedPack" style="font-weight: bold; color: #333; margin-bottom: 10px;">Select a pack above</div>
-                <div style="font-size: 12px; color: #999;">Payment via UPI: 9506344448@slc</div>
-            </div>
-            
-            <div style="display: flex; gap: 10px;">
-                <button class="btn btn-primary" onclick="processPayment()" style="flex: 1;" id="payBtn" disabled>
-                    Pay Now
+            <div class="video-controls">
+                <button class="control-btn inactive" id="videoBtn" onclick="toggleVideo()" title="Toggle Video">
+                    <i class="fas fa-video"></i>
                 </button>
-                <button class="btn" onclick="closePaymentModal()" style="flex: 1; background: #f8f9fa; color: #333;">
-                    Cancel
+                <button class="control-btn inactive" id="audioBtn" onclick="toggleAudio()" title="Toggle Audio">
+                    <i class="fas fa-microphone"></i>
                 </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Chat Sidebar -->
-    <div id="chatSidebar" class="chat-sidebar">
-        <div class="chat-header">
-            <h3>Session Chat</h3>
-            <button onclick="toggleChat()" style="background: none; border: none; font-size: 20px; cursor: pointer; color: #999;">×</button>
-        </div>
-        <div class="chat-messages" id="chatMessages">
-            <div class="chat-message system">
-                <div>Session started</div>
-                <div class="message-time">3:00 PM</div>
-            </div>
-            <div class="chat-message">
-                <strong>Arjun:</strong> Welcome to the JavaScript session! Ready to start?
-                <div class="message-time">3:01 PM</div>
-            </div>
-        </div>
-        <div class="chat-input-container">
-            <div class="chat-input">
-                <input type="text" placeholder="Type a message..." id="chatInput" onkeypress="handleChatKeyPress(event)">
-                <button class="chat-send-btn" onclick="sendMessage()">
-                    <i class="fas fa-paper-plane"></i>
+                <button class="control-btn inactive" id="screenBtn" onclick="toggleScreenShare()" title="Share Screen">
+                    <i class="fas fa-desktop"></i>
+                </button>
+                <button class="control-btn" style="background: var(--error); color: white;" onclick="endCall()" title="End Call">
+                    <i class="fas fa-phone-slash"></i>
                 </button>
             </div>
-        </div>
-    </div>
 
-    <!-- Participants Panel -->
-    <div id="participantsPanel" class="participants-panel">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-            <h3>Participants (2)</h3>
-            <button onclick="toggleParticipants()" style="background: none; border: none; font-size: 20px; cursor: pointer; color: #999;">×</button>
-        </div>
-        
-        <div class="participant-item">
-            <div class="participant-avatar">You</div>
-            <div class="participant-info">
-                <div style="font-weight: bold;">You (Host)</div>
-                <div style="font-size: 12px; color: #999;">Student</div>
-            </div>
-            <div class="participant-status">
-                <div class="status-indicator mic-off"><i class="fas fa-microphone-slash"></i></div>
-                <div class="status-indicator cam-off"><i class="fas fa-video-slash"></i></div>
-            </div>
-        </div>
-        
-        <div class="participant-item">
-            <div class="participant-avatar">AK</div>
-            <div class="participant-info">
-                <div style="font-weight: bold;" id="participantInstructorName">Arjun Kumar</div>
-                <div style="font-size: 12px; color: #999;">Instructor</div>
-            </div>
-            <div class="participant-status">
-                <div class="status-indicator mic-on"><i class="fas fa-microphone"></i></div>
-                <div class="status-indicator cam-on"><i class="fas fa-video"></i></div>
+            <div style="margin-top: 20px; text-align: center;">
+                <label style="display: flex; align-items: center; justify-content: center; gap: 10px;">
+                    <input type="checkbox" id="screenShareEnabled"> Enable Screen Sharing
+                </label>
             </div>
         </div>
     </div>
 
-    <!-- Recording Indicator -->
-    <div id="recordingIndicator" class="recording-indicator">
-        <i class="fas fa-record-vinyl"></i> Recording in Progress
+    <!-- Session Booking Modal -->
+    <div id="bookingModal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('bookingModal')">&times;</button>
+            <h2><i class="fas fa-calendar-plus"></i> Book Skill Session</h2>
+            <div id="bookingDetails">
+                <!-- Booking details will be populated here -->
+            </div>
+            <div class="form-group">
+                <label>Preferred Date & Time</label>
+                <input type="datetime-local" id="sessionDateTime" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label>Special Requirements (Optional)</label>
+                <textarea id="specialRequirements" class="form-control" placeholder="Any specific topics you'd like to focus on..."></textarea>
+            </div>
+            <button class="btn btn-primary" onclick="confirmBooking()">
+                <i class="fas fa-check"></i> Confirm Booking
+            </button>
+        </div>
     </div>
 
-    <!-- Network Status -->
-    <div id="networkStatus" class="network-status">
-        <i class="fas fa-wifi network-good"></i>
-        <span>Excellent Connection</span>
+    <!-- Confirmation Modal -->
+    <div id="confirmationModal" class="modal">
+        <div class="modal-content">
+            <h3 id="confirmationMessage">Are you sure?</h3>
+            <div style="display: flex; justify-content: center; gap: 15px; margin-top: 25px;">
+                <button class="btn-sm btn-success" id="confirmYes">Yes</button>
+                <button class="btn-sm" style="background: var(--error); color: white;" id="confirmNo">Cancel</button>
+            </div>
+        </div>
     </div>
-
-    <!-- Notification -->
-    <div id="notification" class="notification"></div>
 
     <script>
-        // App State
+        // Global variables
         let currentUser = null;
-        let userCredits = 150;
-        let selectedCreditPack = null;
-        let isCallActive = false;
-        let isMicOn = false;
-        let isCameraOn = false;
-        let isChatOpen = false;
-        let isParticipantsOpen = false;
-        let isRecording = false;
-        let isScreenSharing = false;
-        let userListings = [];
-        let totalEarnings = 0;
-        let totalSessions = 0;
-        let currentSessionData = {};
-        let googleMeetUrl = '';
+        let userCredits = 0;
+        let bookedSessions = [];
+        let teachingSessions = [];
+        let selectedVideoOption = 'builtin';
+        let selectedPaymentMethod = 'upi';
+        let allSkills = [];
+        let currentBookingSkill = null;
 
-        // Authentication Functions
-        function loginWithGoogle() {
-            showNotification('Connecting with Google...', 'info');
-            
-            setTimeout(() => {
-                currentUser = {
-                    name: 'John Doe',
-                    email: 'john.doe@gmail.com',
-                    avatar: 'JD',
-                    loginMethod: 'google'
-                };
-                showNotification('Successfully logged in with Google!', 'success');
-                showScreen('dashboardScreen');
-                updateUserInfo();
-            }, 2000);
-        }
-
-        function loginWithCredentials() {
-            const username = document.getElementById('loginUsername').value;
-            const password = document.getElementById('loginPassword').value;
-
-            if (!username || !password) {
-                showNotification('Please enter both username and password', 'error');
-                return;
+        // Initialize app
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if user is logged in
+            const savedUser = localStorage.getItem('skillhive_user');
+            if (savedUser) {
+                currentUser = JSON.parse(savedUser);
+                showMainApp();
             }
+            
+            // Initialize sample data
+            initializeSampleData();
+        });
 
-            showNotification('Signing in...', 'info');
+        // Sample data initialization
+        function initializeSampleData() {
+            allSkills = [
+                {
+                    id: 'skill1',
+                    title: 'Full Stack Web Development',
+                    description: 'Learn MERN stack development from basics to advanced projects. Includes hands-on coding sessions and real-world project building.',
+                    instructor: 'Sarah Johnson',
+                    credits: 45,
+                    duration: 3,
+                    category: 'programming',
+                    rating: 4.8,
+                    reviews: 124,
+                    tags: ['javascript', 'react', 'node.js', 'mongodb'],
+                    prerequisites: 'Basic HTML/CSS knowledge',
+                    videoOption: 'builtin',
+                    featuredSkills: true
+                },
+                {
+                    id: 'skill2',
+                    title: 'Digital Marketing Mastery',
+                    description: 'Master social media marketing, SEO, and content strategy. Learn to create effective campaigns and measure ROI.',
+                    instructor: 'Mike Chen',
+                    credits: 35,
+                    duration: 2.5,
+                    category: 'marketing',
+                    rating: 4.9,
+                    reviews: 89,
+                    tags: ['seo', 'social-media', 'content-marketing', 'analytics'],
+                    prerequisites: 'Basic computer skills',
+                    videoOption: 'googlemeet'
+                },
+                {
+                    id: 'skill3',
+                    title: 'UI/UX Design Fundamentals',
+                    description: 'Learn design thinking, wireframing, and prototyping using industry-standard tools like Figma and Adobe XD.',
+                    instructor: 'Emma Davis',
+                    credits: 40,
+                    duration: 2,
+                    category: 'design',
+                    rating: 4.7,
+                    reviews: 156,
+                    tags: ['figma', 'wireframing', 'prototyping', 'user-research'],
+                    prerequisites: 'Design interest, no experience needed',
+                    videoOption: 'builtin',
+                    featuredSkills: true
+                },
+                {
+                    id: 'skill4',
+                    title: 'Python for Data Science',
+                    description: 'Master Python programming for data analysis, visualization, and machine learning. Includes pandas, matplotlib, and scikit-learn.',
+                    instructor: 'Dr. James Wilson',
+                    credits: 50,
+                    duration: 4,
+                    category: 'programming',
+                    rating: 4.9,
+                    reviews: 203,
+                    tags: ['python', 'data-science', 'machine-learning', 'pandas'],
+                    prerequisites: 'Basic programming knowledge',
+                    videoOption: 'builtin'
+                },
+                {
+                    id: 'skill5',
+                    title: 'Business Strategy & Leadership',
+                    description: 'Develop strategic thinking and leadership skills. Learn to make data-driven decisions and lead high-performing teams.',
+                    instructor: 'Jennifer Rodriguez',
+                    credits: 60,
+                    duration: 3,
+                    category: 'business',
+                    rating: 4.8,
+                    reviews: 78,
+                    tags: ['leadership', 'strategy', 'management', 'decision-making'],
+                    prerequisites: '2+ years work experience',
+                    videoOption: 'googlemeet',
+                    featuredSkills: true
+                },
+                {
+                    id: 'skill6',
+                    title: 'Spanish Conversation Practice',
+                    description: 'Improve your Spanish speaking skills through structured conversations and cultural immersion techniques.',
+                    instructor: 'Carlos Mendez',
+                    credits: 25,
+                    duration: 1.5,
+                    category: 'language',
+                    rating: 4.6,
+                    reviews: 92,
+                    tags: ['spanish', 'conversation', 'pronunciation', 'culture'],
+                    prerequisites: 'Basic Spanish vocabulary',
+                    videoOption: 'builtin'
+                }
+            ];
 
-            setTimeout(() => {
-                currentUser = {
-                    name: username.includes('@') ? username.split('@')[0] : username,
-                    email: username.includes('@') ? username : `${username}@skillhive.com`,
-                    avatar: username.charAt(0).toUpperCase(),
-                    loginMethod: 'credentials'
-                };
-                showNotification('Successfully logged in!', 'success');
-                showScreen('dashboardScreen');
-                updateUserInfo();
-            }, 1500);
-        }
-
-        function showSignup() {
-            showNotification('Signup feature coming soon! Use login for demo.', 'info');
-        }
-
-        function updateUserInfo() {
             if (currentUser) {
-                document.getElementById('userName').textContent = `Welcome, ${currentUser.name}!`;
-                document.getElementById('userCredits').textContent = userCredits;
-                updateEarningsDisplay();
+                loadFeaturedSkills();
+                loadAllSkills();
             }
         }
 
-        // Navigation Functions
-        function showScreen(screenId) {
-            document.querySelectorAll('.screen').forEach(screen => {
-                screen.classList.remove('active');
-            });
-            document.getElementById(screenId).classList.add('active');
+        // Authentication functions
+        function signInWithGoogle() {
+            // Simulate Google Sign-In
+            const mockGoogleUser = {
+                id: 'google_' + Math.random().toString(36).substr(2, 9),
+                name: 'John Doe',
+                email: 'john.doe@gmail.com',
+                avatar: 'JD',
+                provider: 'google'
+            };
+            
+            currentUser = mockGoogleUser;
+            localStorage.setItem('skillhive_user', JSON.stringify(currentUser));
+            userCredits = 50; // Welcome bonus
+            showMainApp();
+            showNotification('Welcome to SkillHive! You received 50 welcome credits.', 'success');
         }
 
-        function showTab(tabName) {
-            document.querySelectorAll('.nav-tab').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            event.target.classList.add('active');
+        function handleLogin() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
 
-            document.querySelectorAll('.tab-content').forEach(content => {
-                content.style.display = 'none';
-            });
-            document.getElementById(tabName + 'Tab').style.display = 'block';
-        }
+            // Clear previous errors
+            clearErrors();
 
-        // Session Booking
-        function bookSession(skillId, cost, instructorName) {
-            if (userCredits < cost) {
-                showNotification('Insufficient credits! Please buy more credits.', 'error');
-                openPaymentModal();
+            // Basic validation
+            if (!validateEmail(email)) {
+                showError('emailError', 'Please enter a valid email address');
                 return;
             }
 
-            showNotification(`Booking session... Cost: ${cost} credits`, 'info');
-            
-            setTimeout(() => {
-                userCredits -= cost;
-                updateUserInfo();
-                showNotification('Session booked successfully! Check "My Sessions" tab.', 'success');
-                
-                // Add session to the sessions tab
-                addBookedSession(skillId, instructorName, cost);
-            }, 1500);
-        }
-
-        function addBookedSession(skillId, instructorName, cost) {
-            // This would typically be handled by the backend
-            // For demo purposes, we're just updating the UI
-        }
-
-        // Enhanced Video Call Functions
-        function showMeetOptions(sessionId, sessionTitle, instructorName) {
-            currentSessionData = { sessionId, sessionTitle, instructorName };
-            document.getElementById('sessionDetails').textContent = `${sessionTitle} with ${instructorName}`;
-            document.getElementById('meetModal').classList.add('active');
-            
-            // Generate Google Meet URL (in production, this would come from your backend)
-            generateGoogleMeetUrl();
-        }
-
-        function generateGoogleMeetUrl() {
-            // In a real implementation, you would:
-            // 1. Call your backend API to create a Google Meet
-            // 2. Your backend would use Google Calendar API or Meet API
-            // 3. Return the meet URL to the frontend
-            
-            // For demo purposes, we'll simulate this
-            const meetId = 'abc-defg-hij'; // This would be generated by Google Meet API
-            googleMeetUrl = `https://meet.google.com/${meetId}`;
-        }
-
-        function joinGoogleMeet() {
-            if (!googleMeetUrl) {
-                showNotification('Generating Google Meet link...', 'info');
-                setTimeout(() => {
-                    // Simulate API call delay
-                    googleMeetUrl = `https://meet.google.com/abc-defg-hij`;
-                    showNotification('Opening Google Meet...', 'success');
-                    
-                    // Open Google Meet in new tab
-                    window.open(googleMeetUrl, '_blank');
-                    
-                    // Show session started notification
-                    setTimeout(() => {
-                        showNotification('Session started in Google Meet! Return here when finished.', 'info');
-                        closeMeetModal();
-                    }, 1000);
-                }, 2000);
-            } else {
-                window.open(googleMeetUrl, '_blank');
-                closeMeetModal();
-            }
-        }
-
-        function joinBuiltInCall() {
-            closeMeetModal();
-            joinVideoCall();
-        }
-
-        function closeMeetModal() {
-            document.getElementById('meetModal').classList.remove('active');
-        }
-
-        function joinVideoCall() {
-            showNotification('Connecting to video session...', 'info');
-            showScreen('videoCallScreen');
-            isCallActive = true;
-            
-            // Update session info
-            document.getElementById('sessionInfo').textContent = currentSessionData.sessionTitle + ' with ' + currentSessionData.instructorName;
-            document.getElementById('instructorName').textContent = currentSessionData.instructorName;
-            document.getElementById('participantInstructorName').textContent = currentSessionData.instructorName;
-            
-            // Simulate connection process
-            setTimeout(() => {
-                document.getElementById('callStatus').textContent = 'Connecting to instructor...';
-            }, 1000);
-            
-            setTimeout(() => {
-                document.getElementById('callStatus').textContent = 'Connected! Session in progress';
-                showNotification('Connected successfully!', 'success');
-                simulateInstructorJoin();
-            }, 3000);
-        }
-
-        function simulateInstructorJoin() {
-            // Add system message to chat
-            addChatMessage('System', `${currentSessionData.instructorName} joined the session`, true);
-            
-            // Update video placeholder to show instructor is connected
-            setTimeout(() => {
-                addChatMessage(currentSessionData.instructorName, 'Hello! Welcome to the session. Can you hear me clearly?', false);
-            }, 2000);
-        }
-
-        function toggleMic() {
-            isMicOn = !isMicOn;
-            const micIcon = document.getElementById('micIcon');
-            const micBtn = document.getElementById('micBtn');
-            
-            if (isMicOn) {
-                micIcon.className = 'fas fa-microphone';
-                micBtn.style.background = '#48cae4';
-                document.querySelector('.participant-item .mic-off').className = 'status-indicator mic-on';
-                document.querySelector('.participant-item .mic-on i').className = 'fas fa-microphone';
-                document.querySelector('.participant-name').textContent = 'You';
-            } else {
-                micIcon.className = 'fas fa-microphone-slash';
-                micBtn.style.background = '#ff6b6b';
-                document.querySelector('.participant-item .mic-on').className = 'status-indicator mic-off';
-                document.querySelector('.participant-item .mic-off i').className = 'fas fa-microphone-slash';
-                document.querySelector('.participant-name').textContent = 'You (Muted)';
-            }
-            
-            showNotification(isMicOn ? 'Microphone turned on' : 'Microphone muted', 'info');
-        }
-
-        function toggleCamera() {
-            isCameraOn = !isCameraOn;
-            const cameraIcon = document.getElementById('cameraIcon');
-            const cameraBtn = document.getElementById('cameraBtn');
-            
-            if (isCameraOn) {
-                cameraIcon.className = 'fas fa-video';
-                cameraBtn.style.background = '#38d9a9';
-                document.querySelector('.participant-item .cam-off').className = 'status-indicator cam-on';
-                document.querySelector('.participant-item .cam-on i').className = 'fas fa-video';
-            } else {
-                cameraIcon.className = 'fas fa-video-slash';
-                cameraBtn.style.background = '#ff6b6b';
-                document.querySelector('.participant-item .cam-on').className = 'status-indicator cam-off';
-                document.querySelector('.participant-item .cam-off i').className = 'fas fa-video-slash';
-            }
-            
-            showNotification(isCameraOn ? 'Camera turned on' : 'Camera turned off', 'info');
-        }
-
-        function shareScreen() {
-            if (!isScreenSharing) {
-                if (navigator.mediaDevices && navigator.mediaDevices.getDisplayMedia) {
-                    navigator.mediaDevices.getDisplayMedia({ video: true, audio: true })
-                        .then(stream => {
-                            isScreenSharing = true;
-                            document.querySelector('.btn-screen').style.background = '#f39c12';
-                            showNotification('Screen sharing started', 'success');
-                            
-                            // Add screen sharing indicator to main video
-                            document.getElementById('callStatus').textContent = 'Screen sharing active';
-                            
-                            // Handle stream end
-                            stream.getVideoTracks()[0].onended = () => {
-                                stopScreenShare();
-                            };
-                        })
-                        .catch(err => {
-                            showNotification('Screen sharing cancelled or failed', 'error');
-                        });
-                } else {
-                    showNotification('Screen sharing not supported in this browser', 'error');
-                }
-            } else {
-                stopScreenShare();
-            }
-        }
-
-        function stopScreenShare() {
-            isScreenSharing = false;
-            document.querySelector('.btn-screen').style.background = '#feca57';
-            document.getElementById('callStatus').textContent = 'Connected! Session in progress';
-            showNotification('Screen sharing stopped', 'info');
-        }
-
-        function toggleRecording() {
-            isRecording = !isRecording;
-            const recordBtn = document.getElementById('recordBtn');
-            const recordingIndicator = document.getElementById('recordingIndicator');
-            
-            if (isRecording) {
-                recordBtn.style.background = '#c0392b';
-                recordBtn.classList.add('active');
-                recordingIndicator.classList.add('active');
-                showNotification('Recording started', 'success');
-                
-                // Add recording message to chat
-                addChatMessage('System', 'Session recording started', true);
-            } else {
-                recordBtn.style.background = '#e74c3c';
-                recordBtn.classList.remove('active');
-                recordingIndicator.classList.remove('active');
-                showNotification('Recording stopped and saved', 'info');
-                
-                // Add recording message to chat
-                addChatMessage('System', 'Session recording stopped', true);
-            }
-        }
-
-        function toggleChat() {
-            isChatOpen = !isChatOpen;
-            const chatSidebar = document.getElementById('chatSidebar');
-            
-            if (isChatOpen) {
-                chatSidebar.classList.add('open');
-                // Close participants panel if open
-                if (isParticipantsOpen) {
-                    toggleParticipants();
-                }
-            } else {
-                chatSidebar.classList.remove('open');
-            }
-        }
-
-        function toggleParticipants() {
-            isParticipantsOpen = !isParticipantsOpen;
-            const participantsPanel = document.getElementById('participantsPanel');
-            
-            if (isParticipantsOpen) {
-                participantsPanel.classList.add('open');
-                // Close chat if open
-                if (isChatOpen) {
-                    toggleChat();
-                }
-            } else {
-                participantsPanel.classList.remove('open');
-            }
-        }
-
-        function endCall() {
-            if (confirm('Are you sure you want to end the call?')) {
-                isCallActive = false;
-                isRecording = false;
-                isScreenSharing = false;
-                showNotification('Call ended', 'info');
-                
-                // Reset all call states
-                resetCallStates();
-                goToDashboard();
-            }
-        }
-
-        function resetCallStates() {
-            isMicOn = false;
-            isCameraOn = false;
-            isRecording = false;
-            isScreenSharing = false;
-            
-            // Reset UI elements
-            document.getElementById('micIcon').className = 'fas fa-microphone-slash';
-            document.getElementById('cameraIcon').className = 'fas fa-video-slash';
-            document.getElementById('micBtn').style.background = '#ff6b6b';
-            document.getElementById('cameraBtn').style.background = '#ff6b6b';
-            document.getElementById('recordBtn').style.background = '#e74c3c';
-            document.querySelector('.btn-screen').style.background = '#feca57';
-            
-            // Hide recording indicator
-            document.getElementById('recordingIndicator').classList.remove('active');
-        }
-
-        function goToDashboard() {
-            showScreen('dashboardScreen');
-            if (isChatOpen) {
-                toggleChat();
-            }
-            if (isParticipantsOpen) {
-                toggleParticipants();
-            }
-        }
-
-        // Enhanced Chat Functions
-        function handleChatKeyPress(event) {
-            if (event.key === 'Enter') {
-                sendMessage();
-            }
-        }
-
-        function sendMessage() {
-            const input = document.getElementById('chatInput');
-            const message = input.value.trim();
-            
-            if (message) {
-                addChatMessage('You', message, false, true);
-                input.value = '';
-                
-                // Simulate instructor response
-                setTimeout(() => {
-                    const responses = [
-                        "Great question! Let me explain that...",
-                        "That's a good point. Here's how we can approach it:",
-                        "I understand what you're asking. The key concept here is...",
-                        "Let me share my screen to show you this better.",
-                        "Perfect! You're getting the hang of it."
-                    ];
-                    const randomResponse = responses[Math.floor(Math.random() * responses.length)];
-                    addChatMessage(currentSessionData.instructorName, randomResponse, false, false);
-                }, 1000 + Math.random() * 2000);
-            }
-        }
-
-        function addChatMessage(sender, message, isSystem = false, isOwn = false) {
-            const chatMessages = document.getElementById('chatMessages');
-            const messageDiv = document.createElement('div');
-            
-            const currentTime = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-            
-            if (isSystem) {
-                messageDiv.className = 'chat-message system';
-                messageDiv.innerHTML = `
-                    <div>${message}</div>
-                    <div class="message-time">${currentTime}</div>
-                `;
-            } else {
-                messageDiv.className = `chat-message${isOwn ? ' own' : ''}`;
-                messageDiv.innerHTML = `
-                    ${isOwn ? '' : `<strong>${sender}:</strong> `}${message}
-                    <div class="message-time">${currentTime}</div>
-                `;
-            }
-            
-            chatMessages.appendChild(messageDiv);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-        }
-
-        // Teaching Functions
-        function showCreateListingForm() {
-            document.getElementById('createListingForm').style.display = 'block';
-            document.getElementById('createListingForm').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        function hideCreateListingForm() {
-            document.getElementById('createListingForm').style.display = 'none';
-            clearListingForm();
-        }
-
-        function clearListingForm() {
-            document.getElementById('skillTitle').value = '';
-            document.getElementById('skillCategory').value = '';
-            document.getElementById('skillDescription').value = '';
-            document.getElementById('skillPrice').value = '';
-            document.getElementById('experienceLevel').value = 'beginner';
-            document.getElementById('sessionDuration').value = '60';
-            
-            document.querySelectorAll('#createListingForm input[type="checkbox"]').forEach(checkbox => {
-                checkbox.checked = false;
-            });
-        }
-
-        function submitSkillListing() {
-            const title = document.getElementById('skillTitle').value.trim();
-            const category = document.getElementById('skillCategory').value;
-            const description = document.getElementById('skillDescription').value.trim();
-            const price = parseInt(document.getElementById('skillPrice').value);
-            const duration = parseInt(document.getElementById('sessionDuration').value);
-            const experience = document.getElementById('experienceLevel').value;
-            
-            const timeSlots = [];
-            document.querySelectorAll('#createListingForm input[type="checkbox"]:checked').forEach(checkbox => {
-                timeSlots.push(checkbox.value);
-            });
-
-            // Validation
-            if (!title) {
-                showNotification('Please enter a skill title', 'error');
-                return;
-            }
-            
-            if (!category) {
-                showNotification('Please select a category', 'error');
-                return;
-            }
-            
-            if (!description || description.length < 50) {
-                showNotification('Please provide a detailed description (at least 50 characters)', 'error');
-                return;
-            }
-            
-            if (!price || price < 5 || price > 100) {
-                showNotification('Please enter a price between 5 and 100 credits', 'error');
-                return;
-            }
-            
-            if (timeSlots.length === 0) {
-                showNotification('Please select at least one available time slot', 'error');
+            if (password.length < 6) {
+                showError('passwordError', 'Password must be at least 6 characters');
                 return;
             }
 
-            const newListing = {
-                id: Date.now(),
-                title,
-                category,
-                description,
-                price,
-                duration,
-                experience,
-                timeSlots,
-                instructor: currentUser.name,
-                instructorAvatar: currentUser.avatar,
-                rating: 0,
-                totalSessions: 0,
-                isActive: true,
-                createdAt: new Date()
+            // Simulate login
+            const mockUser = {
+                id: 'user_' + Math.random().toString(36).substr(2, 9),
+                name: email.split('@')[0],
+                email: email,
+                avatar: email.charAt(0).toUpperCase(),
+                provider: 'custom'
             };
 
-            userListings.push(newListing);
-            showNotification('Skill listing created successfully!', 'success');
-            hideCreateListingForm();
-            updateActiveListings();
+            currentUser = mockUser;
+            localStorage.setItem('skillhive_user', JSON.stringify(currentUser));
+            userCredits = 25; // Welcome bonus
+            showMainApp();
+            showNotification('Login successful! Welcome back.', 'success');
         }
 
-        function updateActiveListings() {
-            const activeListingsContainer = document.getElementById('activeListings');
-            const noListingsMsg = document.getElementById('noListingsMsg');
-            const listingsCount = document.getElementById('listingsCount');
-            
-            const activeListings = userListings.filter(listing => listing.isActive);
-            
-            if (activeListings.length === 0) {
-                noListingsMsg.style.display = 'block';
-                listingsCount.textContent = '0 Active';
-                return;
+        function handleSignup() {
+            const name = document.getElementById('signupName').value;
+            const username = document.getElementById('signupUsername').value;
+            const email = document.getElementById('signupEmail').value;
+            const password = document.getElementById('signupPassword').value;
+
+            // Clear previous errors
+            clearSignupErrors();
+
+            let isValid = true;
+
+            // Validation
+            if (!name.trim()) {
+                showError('nameError', 'Name is required');
+                isValid = false;
             }
-            
-            noListingsMsg.style.display = 'none';
-            listingsCount.textContent = `${activeListings.length} Active`;
-            
-            while (activeListingsContainer.children.length > 1) {
-                activeListingsContainer.removeChild(activeListingsContainer.lastChild);
+
+            if (!validateUsername(username)) {
+                showError('usernameError', 'Username must be 3-20 characters, alphanumeric only');
+                isValid = false;
             }
-            
-            activeListings.forEach(listing => {
-                const listingElement = createListingElement(listing);
-                activeListingsContainer.appendChild(listingElement);
+
+            if (!validateEmail(email)) {
+                showError('signupEmailError', 'Please enter a valid email address');
+                isValid = false;
+            }
+
+            if (password.length < 6) {
+                showError('signupPasswordError', 'Password must be at least 6 characters');
+                isValid = false;
+            }
+
+            if (!isValid) return;
+
+            // Simulate signup
+            const mockUser = {
+                id: 'user_' + Math.random().toString(36).substr(2, 9),
+                name: name,
+                username: username,
+                email: email,
+                avatar: name.charAt(0).toUpperCase(),
+                provider: 'custom'
+            };
+
+            currentUser = mockUser;
+            localStorage.setItem('skillhive_user', JSON.stringify(currentUser));
+            userCredits = 50; // Welcome bonus
+            showMainApp();
+            showNotification('Account created successfully! You received 50 welcome credits.', 'success');
+        }
+
+        function logout() {
+            showConfirmation('Are you sure you want to logout?', () => {
+                currentUser = null;
+                userCredits = 0;
+                bookedSessions = [];
+                teachingSessions = [];
+                localStorage.removeItem('skillhive_user');
+                
+                document.getElementById('mainApp').style.display = 'none';
+                document.getElementById('loginPage').style.display = 'flex';
+                
+                showNotification('You have been logged out successfully.', 'info');
             });
         }
 
-        function createListingElement(listing) {
-            const listingDiv = document.createElement('div');
-            listingDiv.className = 'skill-card';
-            listingDiv.style.margin = '15px 0';
+        // Validation functions
+        function validateEmail(email) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        }
+
+        function validateUsername(username) {
+            return /^[a-zA-Z0-9]{3,20}$/.test(username);
+        }
+
+        function showError(elementId, message) {
+            const errorElement = document.getElementById(elementId);
+            const inputElement = errorElement.parentElement.querySelector('.form-control');
+            errorElement.textContent = message;
+            inputElement.classList.add('error');
+        }
+
+        function clearErrors() {
+            document.getElementById('emailError').textContent = '';
+            document.getElementById('passwordError').textContent = '';
+            document.querySelectorAll('#loginForm .form-control').forEach(input => {
+                input.classList.remove('error');
+            });
+        }
+
+        function clearSignupErrors() {
+            document.getElementById('nameError').textContent = '';
+            document.getElementById('usernameError').textContent = '';
+            document.getElementById('signupEmailError').textContent = '';
+            document.getElementById('signupPasswordError').textContent = '';
+            document.querySelectorAll('#signupForm .form-control').forEach(input => {
+                input.classList.remove('error');
+            });
+        }
+
+        function showSignUp() {
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('signupForm').style.display = 'block';
+            clearErrors();
+            clearSignupErrors();
+        }
+
+        function showLogin() {
+            document.getElementById('signupForm').style.display = 'none';
+            document.getElementById('loginForm').style.display = 'block';
+            clearErrors();
+            clearSignupErrors();
+        }
+
+        function showMainApp() {
+            document.getElementById('loginPage').style.display = 'none';
+            document.getElementById('mainApp').style.display = 'block';
             
-            listingDiv.innerHTML = `
-                <div class="skill-header">
-                    <h3 class="skill-title">${listing.title}</h3>
-                    <div class="price-tag">${listing.price} Credits</div>
-                </div>
-                <div class="skill-description" style="margin-bottom: 15px;">
-                    ${listing.description}
-                </div>
-                <div style="display: flex; gap: 15px; align-items: center; margin-bottom: 15px; flex-wrap: wrap;">
-                    <div style="display: flex; align-items: center; gap: 5px; font-size: 14px; color: #666;">
-                        <i class="fas fa-tag"></i>
-                        <span style="text-transform: capitalize;">${listing.category}</span>
-                    </div>
-                    <div style="display: flex; align-items: center; gap: 5px; font-size: 14px; color: #666;">
-                        <i class="fas fa-clock"></i>
-                        <span>${listing.duration} min</span>
-                    </div>
-                    <div style="display: flex; align-items: center; gap: 5px; font-size: 14px; color: #666;">
-                        <i class="fas fa-medal"></i>
-                        <span style="text-transform: capitalize;">${listing.experience}</span>
-                    </div>
-                </div>
-                <div style="margin-bottom: 15px;">
-                    <div style="font-size: 14px; color: #666; margin-bottom: 5px;">Available Time Slots:</div>
-                    <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-                        ${listing.timeSlots.map(slot => `
-                            <span style="background: rgba(102, 126, 234, 0.1); color: #667eea; padding: 4px 12px; border-radius: 15px; font-size: 12px; text-transform: capitalize;">
-                                ${slot}
-                            </span>
-                        `).join('')}
-                    </div>
-                </div>
-                <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <div style="display: flex; gap: 15px; align-items: center;">
-                        <div style="font-size: 14px; color: #38d9a9; font-weight: bold;">
-                            <i class="fas fa-calendar-check"></i> ${listing.totalSessions} sessions
-                        </div>
-                        <div style="font-size: 14px; color: #feca57; font-weight: bold;">
-                            <i class="fas fa-star"></i> ${listing.rating > 0 ? listing.rating.toFixed(1) : 'No ratings yet'}
-                        </div>
-                    </div>
-                    <div style="display: flex; gap: 10px;">
-                        <button class="btn-small" onclick="editListing(${listing.id})" style="background: #667eea; color: white;">
-                            <i class="fas fa-edit"></i> Edit
-                        </button>
-                        <button class="btn-small" onclick="toggleListingStatus(${listing.id})" style="background: ${listing.isActive ? '#ff6b6b' : '#38d9a9'}; color: white;">
-                            <i class="fas fa-${listing.isActive ? 'pause' : 'play'}"></i> ${listing.isActive ? 'Pause' : 'Activate'}
+            // Update user info
+            document.getElementById('userCredits').textContent = userCredits;
+            document.getElementById('userAvatar').textContent = currentUser.avatar;
+            
+            // Load data
+            loadFeaturedSkills();
+            loadAllSkills();
+            loadUserSessions();
+        }
+
+        // Navigation functions
+        function showSection(sectionName) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.page-section');
+            sections.forEach(section => section.classList.remove('active'));
+            
+            // Show selected section
+            const targetSection = document.getElementById(sectionName);
+            targetSection.classList.add('active');
+            targetSection.classList.add('fadeIn');
+            
+            // Update navigation
+            const navLinks = document.querySelectorAll('.nav-tab, .mobile-nav-item');
+            navLinks.forEach(link => link.classList.remove('active'));
+            
+            const activeLinks = document.querySelectorAll(`[onclick*="'${sectionName}'"]`);
+            activeLinks.forEach(link => link.classList.add('active'));
+
+            // Load section-specific data
+            if (sectionName === 'learn') {
+                loadAllSkills();
+            } else if (sectionName === 'sessions') {
+                loadUserSessions();
+            }
+        }
+
+        // Skills management
+        function loadFeaturedSkills() {
+            const featuredSkills = allSkills.filter(skill => skill.featuredSkills);
+            const container = document.getElementById('featuredSkills');
+            
+            if (featuredSkills.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: var(--text-light);">No featured skills available.</p>';
+                return;
+            }
+
+            container.innerHTML = featuredSkills.map(skill => createSkillCard(skill, true)).join('');
+        }
+
+        function loadAllSkills() {
+            const container = document.getElementById('skillsList');
+            container.innerHTML = allSkills.map(skill => createSkillCard(skill)).join('');
+        }
+
+        function createSkillCard(skill, isFeatured = false) {
+            const tagHtml = skill.tags.map(tag => `<span class="tag">${tag}</span>`).join('');
+            
+            return `
+                <div class="card skill-card">
+                    ${isFeatured ? '<div style="background: linear-gradient(45deg, var(--primary-yellow), var(--warning)); color: white; padding: 5px 10px; border-radius: 15px; display: inline-block; margin-bottom: 10px; font-size: 12px; font-weight: bold;"><i class="fas fa-star"></i> FEATURED</div>' : ''}
+                    <h3>${skill.title}</h3>
+                    <p>${skill.description}</p>
+                    <div class="skill-tags">${tagHtml}</div>
+                    <p><strong>Instructor:</strong> ${skill.instructor}</p>
+                    <p><strong>Duration:</strong> ${skill.duration} hours</p>
+                    <p><strong>Prerequisites:</strong> ${skill.prerequisites}</p>
+                    <div class="skill-meta">
+                        <span class="skill-price">${skill.credits} Credits</span>
+                        <span class="skill-rating">
+                            <i class="fas fa-star"></i> ${skill.rating} (${skill.reviews} reviews)
+                        </span>
+                        <button class="btn-sm btn-success" onclick="openBookingModal('${skill.id}')">
+                            <i class="fas fa-calendar-plus"></i> Book Session
                         </button>
                     </div>
                 </div>
             `;
-            
-            return listingDiv;
         }
 
-        function editListing(listingId) {
-            const listing = userListings.find(l => l.id === listingId);
-            if (!listing) return;
-            
-            document.getElementById('skillTitle').value = listing.title;
-            document.getElementById('skillCategory').value = listing.category;
-            document.getElementById('skillDescription').value = listing.description;
-            document.getElementById('skillPrice').value = listing.price;
-            document.getElementById('sessionDuration').value = listing.duration;
-            document.getElementById('experienceLevel').value = listing.experience;
-            
-            listing.timeSlots.forEach(slot => {
-                const checkbox = document.querySelector(`#createListingForm input[value="${slot}"]`);
-                if (checkbox) checkbox.checked = true;
+        function filterSkills() {
+            const searchTerm = document.getElementById('skillSearch').value.toLowerCase();
+            const categoryFilter = document.getElementById('categoryFilter').value;
+            const priceFilter = document.getElementById('priceFilter').value;
+            const sortBy = document.getElementById('sortBy').value;
+
+            let filteredSkills = allSkills.filter(skill => {
+                const matchesSearch = skill.title.toLowerCase().includes(searchTerm) ||
+                                    skill.description.toLowerCase().includes(searchTerm) ||
+                                    skill.tags.some(tag => tag.toLowerCase().includes(searchTerm));
+                
+                const matchesCategory = !categoryFilter || skill.category === categoryFilter;
+                
+                let matchesPrice = true;
+                if (priceFilter) {
+                    const [min, max] = priceFilter.split('-').map(Number);
+                    if (max) {
+                        matchesPrice = skill.credits >= min && skill.credits <= max;
+                    } else {
+                        matchesPrice = skill.credits >= min;
+                    }
+                }
+
+                return matchesSearch && matchesCategory && matchesPrice;
             });
-            
-            showCreateListingForm();
-            
-            const submitBtn = document.querySelector('#createListingForm .btn-primary');
-            submitBtn.innerHTML = '<i class="fas fa-save"></i> Update Listing';
-            submitBtn.onclick = () => updateSkillListing(listingId);
+
+            // Sort skills
+            if (sortBy === 'rating') {
+                filteredSkills.sort((a, b) => b.rating - a.rating);
+            } else if (sortBy === 'price') {
+                filteredSkills.sort((a, b) => a.credits - b.credits);
+            }
+
+            const container = document.getElementById('skillsList');
+            if (filteredSkills.length === 0) {
+                container.innerHTML = '<div class="card"><p style="text-align: center; color: var(--text-light);">No skills found matching your criteria.</p></div>';
+            } else {
+                container.innerHTML = filteredSkills.map(skill => createSkillCard(skill)).join('');
+            }
         }
 
-        function updateSkillListing(listingId) {
-            const listingIndex = userListings.findIndex(l => l.id === listingId);
-            if (listingIndex === -1) return;
-            
-            const title = document.getElementById('skillTitle').value.trim();
-            const category = document.getElementById('skillCategory').value;
-            const description = document.getElementById('skillDescription').value.trim();
-            const price = parseInt(document.getElementById('skillPrice').value);
-            const duration = parseInt(document.getElementById('sessionDuration').value);
-            const experience = document.getElementById('experienceLevel').value;
-            
-            const timeSlots = [];
-            document.querySelectorAll('#createListingForm input[type="checkbox"]:checked').forEach(checkbox => {
-                timeSlots.push(checkbox.value);
-            });
+        // Booking functions
+        function openBookingModal(skillId) {
+            const skill = allSkills.find(s => s.id === skillId);
+            if (!skill) return;
 
-            if (!title || !category || !description || description.length < 50 || !price || price < 5 || price > 100 || timeSlots.length === 0) {
-                showNotification('Please fill all required fields correctly', 'error');
+            if (userCredits < skill.credits) {
+                showNotification(`Insufficient credits! You need ${skill.credits} credits but only have ${userCredits}.`, 'error');
+                showPaymentModal();
                 return;
             }
 
-            userListings[listingIndex] = {
-                ...userListings[listingIndex],
-                title,
-                category,
-                description,
-                price,
-                duration,
-                experience,
-                timeSlots,
-                updatedAt: new Date()
+            currentBookingSkill = skill;
+            document.getElementById('bookingDetails').innerHTML = `
+                <div class="card" style="margin-bottom: 20px;">
+                    <h4>${skill.title}</h4>
+                    <p><strong>Instructor:</strong> ${skill.instructor}</p>
+                    <p><strong>Duration:</strong> ${skill.duration} hours</p>
+                    <p><strong>Credits:</strong> ${skill.credits}</p>
+                    <p><strong>Your Credits:</strong> ${userCredits}</p>
+                </div>
+            `;
+
+            // Set minimum datetime to now
+            const now = new Date();
+            now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+            document.getElementById('sessionDateTime').min = now.toISOString().slice(0, 16);
+
+            document.getElementById('bookingModal').classList.add('active');
+        }
+
+        function confirmBooking() {
+            const datetime = document.getElementById('sessionDateTime').value;
+            const requirements = document.getElementById('specialRequirements').value;
+
+            if (!datetime) {
+                showNotification('Please select a date and time for your session.', 'error');
+                return;
+            }
+
+            const selectedDate = new Date(datetime);
+            if (selectedDate <= new Date()) {
+                showNotification('Please select a future date and time.', 'error');
+                return;
+            }
+
+            // Deduct credits
+            userCredits -= currentBookingSkill.credits;
+            document.getElementById('userCredits').textContent = userCredits;
+
+            // Add to booked sessions
+            const session = {
+                id: 'session_' + Date.now(),
+                skill: currentBookingSkill.title,
+                instructor: currentBookingSkill.instructor,
+                credits: currentBookingSkill.credits,
+                datetime: datetime,
+                requirements: requirements,
+                status: 'upcoming',
+                videoOption: currentBookingSkill.videoOption,
+                skillId: currentBookingSkill.id
             };
 
-            showNotification('Listing updated successfully!', 'success');
-            hideCreateListingForm();
-            updateActiveListings();
+            bookedSessions.push(session);
+            localStorage.setItem('skillhive_sessions', JSON.stringify(bookedSessions));
+
+            closeModal('bookingModal');
+            showNotification(`Session "${currentBookingSkill.title}" booked successfully!`, 'success');
             
-            const submitBtn = document.querySelector('#createListingForm .btn-primary');
-            submitBtn.innerHTML = '<i class="fas fa-check"></i> Create Listing';
-            submitBtn.onclick = submitSkillListing;
+            // Reset form
+            document.getElementById('sessionDateTime').value = '';
+            document.getElementById('specialRequirements').value = '';
+            currentBookingSkill = null;
         }
 
-        function toggleListingStatus(listingId) {
-            const listing = userListings.find(l => l.id === listingId);
-            if (!listing) return;
+        // Teaching functions
+        function selectVideoOption(option) {
+            selectedVideoOption = option;
             
-            listing.isActive = !listing.isActive;
-            const status = listing.isActive ? 'activated' : 'paused';
-            showNotification(`Listing ${status} successfully!`, 'success');
-            updateActiveListings();
+            // Update UI
+            const options = document.querySelectorAll('.video-option');
+            options.forEach(opt => opt.classList.remove('selected'));
+            event.currentTarget.classList.add('selected');
+            
+            // Show/hide Google Meet link field
+            const meetLinkGroup = document.getElementById('meetLinkGroup');
+            if (option === 'googlemeet') {
+                meetLinkGroup.style.display = 'block';
+            } else {
+                meetLinkGroup.style.display = 'none';
+            }
         }
 
-        function updateEarningsDisplay() {
-            document.getElementById('totalEarnings').textContent = totalEarnings;
-            document.getElementById('totalSessions').textContent = totalSessions;
+        function createSkillSession(event) {
+            event.preventDefault();
+            
+            const title = document.getElementById('skillTitle').value;
+            const category = document.getElementById('skillCategory').value;
+            const description = document.getElementById('skillDescription').value;
+            const credits = parseInt(document.getElementById('skillCredits').value);
+            const duration = parseFloat(document.getElementById('skillDuration').value);
+            const tags = document.getElementById('skillTags').value.split(',').map(tag => tag.trim()).filter(tag => tag);
+            const prerequisites = document.getElementById('skillPrerequisites').value;
+            const certificationRecs = document.getElementById('certificationRecs').value;
+            const customMeetLink = document.getElementById('customMeetLink').value;
+
+            if (selectedVideoOption === 'googlemeet' && (!customMeetLink || !customMeetLink.includes('meet.google.com'))) {
+                showNotification('Please provide a valid Google Meet link.', 'error');
+                return;
+            }
+
+            const newSkill = {
+                id: 'skill_' + Date.now(),
+                title,
+                description,
+                instructor: currentUser.name,
+                credits,
+                duration,
+                category,
+                rating: 0,
+                reviews: 0,
+                tags,
+                prerequisites: prerequisites || 'None',
+                videoOption: selectedVideoOption,
+                customMeetLink: selectedVideoOption === 'googlemeet' ? customMeetLink : null,
+                certificationRecs,
+                createdBy: currentUser.id
+            };
+
+            allSkills.push(newSkill);
+            teachingSessions.push(newSkill);
+            localStorage.setItem('skillhive_teaching', JSON.stringify(teachingSessions));
+
+            // Clear form
+            document.getElementById('teachForm').reset();
+            selectedVideoOption = 'builtin';
+            document.querySelectorAll('.video-option').forEach(opt => opt.classList.remove('selected'));
+            document.getElementById('meetLinkGroup').style.display = 'none';
+
+            loadMyTeachingSkills();
+            showNotification('Skill session created successfully!', 'success');
         }
 
-        // Payment Functions
-        function openPaymentModal() {
+        function loadMyTeachingSkills() {
+            const mySkills = teachingSessions.filter(skill => skill.createdBy === currentUser.id);
+            const container = document.getElementById('myTeachingList');
+            
+            if (mySkills.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: var(--text-light); font-style: italic;">No teaching sessions created yet. Create your first skill above!</p>';
+                return;
+            }
+
+            container.innerHTML = mySkills.map(skill => `
+                <div class="card">
+                    <h4>${skill.title}</h4>
+                    <p>${skill.description}</p>
+                    <div class="skill-meta">
+                        <span class="skill-price">${skill.credits} Credits</span>
+                        <span>Duration: ${skill.duration}h</span>
+                        <button class="btn-sm btn-outline" onclick="editSkill('${skill.id}')">
+                            <i class="fas fa-edit"></i> Edit
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function editSkill(skillId) {
+            showNotification('Edit functionality would open a pre-filled form with skill details.', 'info');
+        }
+
+        function createMockInterviewListing() {
+            showNotification('Mock interview creation feature would open a specialized form for interview sessions.', 'info');
+        }
+
+        // Session management
+        function loadUserSessions() {
+            const savedSessions = localStorage.getItem('skillhive_sessions');
+            if (savedSessions) {
+                bookedSessions = JSON.parse(savedSessions);
+            }
+
+            const learningContainer = document.getElementById('learningSessionsList');
+            const teachingContainer = document.getElementById('teachingScheduleList');
+
+            // Load learning sessions
+            if (bookedSessions.length === 0) {
+                learningContainer.innerHTML = '<p style="text-align: center; color: var(--text-light); font-style: italic;">No learning sessions booked yet. <a href="#" onclick="showSection(\'learn\')" style="color: var(--primary-blue);">Browse skills</a> to book your first session.</p>';
+            } else {
+                learningContainer.innerHTML = bookedSessions.map(session => createSessionCard(session)).join('');
+            }
+
+            // Load teaching schedule (simulated)
+            teachingContainer.innerHTML = '<p style="text-align: center; color: var(--text-light); font-style: italic;">No students have booked your sessions yet. Create more skills to attract learners!</p>';
+        }
+
+        function createSessionCard(session) {
+            const sessionDate = new Date(session.datetime);
+            const isUpcoming = sessionDate > new Date();
+            
+            return `
+                <div class="card session-card">
+                    <div class="session-status ${isUpcoming ? 'status-upcoming' : 'status-completed'}">
+                        ${isUpcoming ? 'Upcoming' : 'Completed'}
+                    </div>
+                    <h4>${session.skill}</h4>
+                    <p><strong>Instructor:</strong> ${session.instructor}</p>
+                    <p><strong>Date & Time:</strong> ${sessionDate.toLocaleString()}</p>
+                    <p><strong>Credits Paid:</strong> ${session.credits}</p>
+                    ${session.requirements ? `<p><strong>Special Requirements:</strong> ${session.requirements}</p>` : ''}
+                    <div style="margin-top: 15px; display: flex; gap: 10px; flex-wrap: wrap;">
+                        ${isUpcoming ? `
+                            <button class="btn-sm btn-success" onclick="joinVideoSession('${session.id}')">
+                                <i class="fas fa-video"></i> Join Session
+                            </button>
+                            <button class="btn-sm btn-outline" onclick="rescheduleSession('${session.id}')">
+                                <i class="fas fa-calendar"></i> Reschedule
+                            </button>
+                        ` : `
+                            <button class="btn-sm btn-outline" onclick="startMockInterview('${session.skill}')">
+                                <i class="fas fa-microphone-alt"></i> Mock Interview
+                            </button>
+                            <button class="btn-sm btn-outline" onclick="showCertification('${session.skill}')">
+                                <i class="fas fa-certificate"></i> Certificate
+                            </button>
+                        `}
+                    </div>
+                </div>
+            `;
+        }
+
+        function joinVideoSession(sessionId) {
+            const session = bookedSessions.find(s => s.id === sessionId);
+            if (!session) return;
+
+            document.getElementById('videoCallModal').classList.add('active');
+            
+            // Simulate connection process
+            setTimeout(() => {
+                const videoContainer = document.querySelector('.video-container');
+                videoContainer.innerHTML = `
+                    <div class="video-feed local-video">You</div>
+                    <div class="video-feed remote-video">${session.instructor}</div>
+                    <div style="color: #ccc; text-align: center;">
+                        <h3>Connected to ${session.skill}</h3>
+                        <p>Session with ${session.instructor} is now active</p>
+                    </div>
+                `;
+            }, 2000);
+        }
+
+        function rescheduleSession(sessionId) {
+            showNotification('Reschedule functionality would open a calendar to select new date/time.', 'info');
+        }
+
+        function startMockInterview(skillTitle) {
+            showNotification(`Starting mock interview for ${skillTitle}. This would open an AI-powered interview simulation.`, 'info');
+        }
+
+        function showCertification(skillTitle) {
+            showNotification(`Opening certificate for ${skillTitle}. This would generate a completion certificate.`, 'success');
+        }
+
+        // Video call controls
+        function toggleVideo() {
+            const btn = document.getElementById('videoBtn');
+            const isActive = btn.classList.contains('active');
+            
+            if (isActive) {
+                btn.classList.remove('active');
+                btn.classList.add('inactive');
+                btn.innerHTML = '<i class="fas fa-video-slash"></i>';
+            } else {
+                btn.classList.add('active');
+                btn.classList.remove('inactive');
+                btn.innerHTML = '<i class="fas fa-video"></i>';
+            }
+            
+            showNotification(`Video ${isActive ? 'disabled' : 'enabled'}`, 'info');
+        }
+
+        function toggleAudio() {
+            const btn = document.getElementById('audioBtn');
+            const isActive = btn.classList.contains('active');
+            
+            if (isActive) {
+                btn.classList.remove('active');
+                btn.classList.add('mute');
+                btn.innerHTML = '<i class="fas fa-microphone-slash"></i>';
+            } else {
+                btn.classList.add('active');
+                btn.classList.remove('mute');
+                btn.innerHTML = '<i class="fas fa-microphone"></i>';
+            }
+            
+            showNotification(`Audio ${isActive ? 'muted' : 'unmuted'}`, 'info');
+        }
+
+        function toggleScreenShare() {
+            const btn = document.getElementById('screenBtn');
+            const isActive = btn.classList.contains('active');
+            
+            btn.classList.toggle('active');
+            btn.classList.toggle('inactive');
+            
+            showNotification(`Screen sharing ${isActive ? 'stopped' : 'started'}`, 'info');
+        }
+
+        function endCall() {
+            showConfirmation('End this session?', () => {
+                closeModal('videoCallModal');
+                showNotification('Session ended. Thank you for using SkillHive!', 'success');
+            });
+        }
+
+        // Career analysis
+        function handleResumeUpload() {
+            const file = document.getElementById('resumeFile').files[0];
+            const resumeFileName = document.getElementById('resumeFileName');
+            
+            if (file) {
+                if (file.size > 5 * 1024 * 1024) { // 5MB limit
+                    showNotification('File size too large. Please upload a file smaller than 5MB.', 'error');
+                    document.getElementById('resumeFile').value = '';
+                    return;
+                }
+                resumeFileName.textContent = `📄 ${file.name}`;
+            } else {
+                resumeFileName.textContent = '';
+            }
+        }
+
+        function analyzeCareer(event) {
+            event.preventDefault();
+            
+            const jobRequirements = document.getElementById('jobRequirements').value;
+            const resumeFile = document.getElementById('resumeFile').files[0];
+            
+            if (!jobRequirements.trim()) {
+                showNotification('Please enter job requirements.', 'error');
+                return;
+            }
+            
+            if (!resumeFile) {
+                showNotification('Please upload your resume.', 'error');
+                return;
+            }
+            
+            // Show loading state
+            const resultsDiv = document.getElementById('analysisResults');
+            resultsDiv.style.display = 'block';
+            resultsDiv.innerHTML = `
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <div style="margin-left: 20px;">
+                        <h3>Analyzing your career profile...</h3>
+                        <p>Our AI is comparing your resume with job requirements</p>
+                    </div>
+                </div>
+            `;
+            
+            // Simulate AI analysis
+            setTimeout(() => {
+                showAnalysisResults();
+            }, 3000);
+        }
+
+        function showAnalysisResults() {
+            // Mock analysis results based on job requirements
+            const excellentSkills = ['JavaScript', 'HTML/CSS', 'Problem Solving', 'Team Collaboration', 'Git Version Control'];
+            const improvementSkills = ['React.js', 'Node.js', 'Database Management', 'API Development'];
+            const learnSkills = ['Docker', 'AWS Cloud Services', 'TypeScript', 'System Design', 'Microservices'];
+            
+            document.getElementById('excellentSkills').innerHTML = 
+                excellentSkills.map(skill => `<li>${skill} <span style="color: var(--success);"><i class="fas fa-check"></i></span></li>`).join('');
+            
+            document.getElementById('improvementSkills').innerHTML = 
+                improvementSkills.map(skill => `<li>${skill} <span style="color: var(--warning);"><i class="fas fa-arrow-up"></i></span></li>`).join('');
+            
+            document.getElementById('learnSkills').innerHTML = 
+                learnSkills.map(skill => `<li>${skill} <span style="color: var(--error);"><i class="fas fa-plus"></i></span></li>`).join('');
+            
+            document.getElementById('recommendations').innerHTML = `
+                <div style="background: linear-gradient(135deg, var(--light-blue), rgba(16, 185, 129, 0.1)); padding: 20px; border-radius: 15px; margin-bottom: 20px; border-left: 4px solid var(--error);">
+                    <h4><i class="fas fa-exclamation-triangle"></i> Priority 1: Learn Docker & AWS</h4>
+                    <p>These are critical for DevOps requirements in the job posting. Focus on containerization and cloud deployment.</p>
+                    <button class="btn-sm btn-success" onclick="searchSkillsForCareer('Docker')">Find Docker Courses</button>
+                </div>
+                <div style="background: linear-gradient(135deg, var(--light-yellow), rgba(245, 158, 11, 0.1)); padding: 20px; border-radius: 15px; margin-bottom: 20px; border-left: 4px solid var(--warning);">
+                    <h4><i class="fas fa-chart-line"></i> Priority 2: Strengthen React.js & Node.js</h4>
+                    <p>Your experience shows basic knowledge, but advanced concepts are needed for senior-level positions.</p>
+                    <button class="btn-sm btn-success" onclick="searchSkillsForCareer('React')">Find React Courses</button>
+                </div>
+                <div style="background: var(--gray-100); padding: 20px; border-radius: 15px; border-left: 4px solid var(--primary-blue);">
+                    <h4><i class="fas fa-lightbulb"></i> Bonus Recommendation</h4>
+                    <p>Consider system design mock interviews to prepare for technical discussions about architecture and scalability.</p>
+                    <button class="btn-sm btn-outline" onclick="searchSkillsForCareer('System Design')">Find Mock Interviews</button>
+                </div>
+            `;
+        }
+
+        function searchSkillsForCareer(skillName) {
+            showSection('learn');
+            document.getElementById('skillSearch').value = skillName;
+            filterSkills();
+            showNotification(`Showing courses related to "${skillName}"`, 'success');
+        }
+
+        // Payment functions
+        function showPaymentModal() {
             document.getElementById('paymentModal').classList.add('active');
         }
 
-        function closePaymentModal() {
-            document.getElementById('paymentModal').classList.remove('active');
-            selectedCreditPack = null;
-            document.getElementById('payBtn').disabled = true;
-            document.querySelectorAll('.credit-option').forEach(option => {
-                option.classList.remove('selected');
-            });
-        }
-
-        function selectCreditPack(credits, price) {
-            selectedCreditPack = { credits, price };
+        function selectCreditPackage(credits, price) {
+            document.getElementById('creditAmount').value = credits;
+            updatePaymentAmount();
             
-            document.querySelectorAll('.credit-option').forEach(option => {
-                option.classList.remove('selected');
+            // Highlight selected package
+            document.querySelectorAll('#paymentModal .payment-option').forEach(opt => {
+                opt.classList.remove('selected');
             });
             event.currentTarget.classList.add('selected');
+        }
+
+        function updatePaymentAmount() {
+            const credits = parseInt(document.getElementById('creditAmount').value) || 0;
+            const amount = credits * 10;
+            document.getElementById('totalAmount').textContent = amount;
+            document.getElementById('payAmount').textContent = amount;
+        }
+
+        function selectPaymentMethod(method) {
+            selectedPaymentMethod = method;
             
-            document.getElementById('selectedPack').textContent = `${credits} Credits - ₹${price}`;
-            document.getElementById('payBtn').disabled = false;
+            // Update UI
+            const options = document.querySelectorAll('#paymentModal .payment-options')[1].querySelectorAll('.payment-option');
+            options.forEach(opt => opt.classList.remove('selected'));
+            event.currentTarget.classList.add('selected');
+            
+            // Show/hide payment details
+            document.getElementById('upiDetails').style.display = method === 'upi' ? 'block' : 'none';
+            document.getElementById('cardDetails').style.display = method === 'card' ? 'block' : 'none';
         }
 
         function processPayment() {
-            if (!selectedCreditPack) return;
+            const credits = parseInt(document.getElementById('creditAmount').value) || 0;
+            const amount = credits * 10;
             
-            const { credits, price } = selectedCreditPack;
-            
-            showNotification('Redirecting to payment gateway...', 'info');
-            
-            const upiId = '9506344448@slc';
-            const amount = price;
-            const note = `SkillHive Credits: ${credits} credits`;
-            
-            const upiUrl = `upi://pay?pa=${upiId}&pn=SkillHive&am=${amount}&cu=INR&tn=${encodeURIComponent(note)}`;
-            
-            const isMobile = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-            
-            if (isMobile) {
-                window.location.href = upiUrl;
-            } else {
-                showNotification(`Please pay ₹${price} to UPI ID: ${upiId}`, 'info');
-            }
-            
-            setTimeout(() => {
-                userCredits += credits;
-                updateUserInfo();
-                showNotification(`Payment successful! ${credits} credits added to your account.`, 'success');
-                closePaymentModal();
-            }, 3000);
-        }
-
-        // Notification System
-        function showNotification(message, type = 'info') {
-            const notification = document.getElementById('notification');
-            notification.textContent = message;
-            notification.className = `notification show ${type}`;
-            
-            setTimeout(() => {
-                notification.classList.remove('show');
-            }, 3000);
-        }
-
-        // Network Quality Simulation
-        function updateNetworkStatus() {
-            const networkStatus = document.getElementById('networkStatus');
-            const statuses = [
-                { class: 'network-good', text: 'Excellent Connection', icon: 'fas fa-wifi' },
-                { class: 'network-fair', text: 'Good Connection', icon: 'fas fa-wifi' },
-                { class: 'network-poor', text: 'Poor Connection', icon: 'fas fa-wifi' }
-            ];
-            
-            // Simulate network changes during call
-            if (isCallActive) {
-                const randomStatus = statuses[Math.floor(Math.random() * statuses.length)];
-                networkStatus.innerHTML = `
-                    <i class="${randomStatus.icon} ${randomStatus.class}"></i>
-                    <span>${randomStatus.text}</span>
-                `;
-            }
-        }
-
-        // Initialize app
-        document.addEventListener('DOMContentLoaded', function() {
-            document.body.style.opacity = '0';
-            setTimeout(() => {
-                document.body.style.transition = 'opacity 0.5s ease';
-                document.body.style.opacity = '1';
-            }, 100);
-
-            setTimeout(() => {
-                showNotification('Welcome to SkillHive! Please log in to continue.', 'info');
-            }, 1000);
-
-            // Start network status updates
-            setInterval(updateNetworkStatus, 5000);
-        });
-
-        // Handle online/offline status
-        window.addEventListener('online', function() {
-            showNotification('Connection restored', 'success');
-        });
-
-        window.addEventListener('offline', function() {
-            showNotification('No internet connection', 'error');
-        });
-
-        // Enhanced Google Meet Integration Class
-        class GoogleMeetIntegration {
-            constructor() {
-                this.meetApiLoaded = false;
-                this.currentMeet = null;
-            }
-
-            async initializeMeetAPI() {
-                // In production, you would load the Google Meet API
-                // This is a placeholder for the actual implementation
-                if (!this.meetApiLoaded) {
-                    try {
-                        // Load Google API
-                        await this.loadGoogleAPI();
-                        this.meetApiLoaded = true;
-                        return true;
-                    } catch (error) {
-                        console.error('Failed to load Google Meet API:', error);
-                        return false;
-                    }
-                }
-                return true;
-            }
-
-            async loadGoogleAPI() {
-                return new Promise((resolve, reject) => {
-                    // Simulate API loading
-                    setTimeout(() => {
-                        resolve();
-                    }, 1000);
-                });
-            }
-
-            async createMeeting(sessionTitle, instructorName, studentName) {
-                // In production, this would call Google Calendar API to create a meet
-                const meetingData = {
-                    summary: sessionTitle,
-                    description: `SkillHive session between ${instructorName} and ${studentName}`,
-                    start: {
-                        dateTime: new Date().toISOString(),
-                    },
-                    end: {
-                        dateTime: new Date(Date.now() + 60 * 60 * 1000).toISOString(), // 1 hour later
-                    },
-                    conferenceData: {
-                        createRequest: {
-                            requestId: 'skillhive_' + Date.now(),
-                        }
-                    }
-                };
-
-                // Simulate API call
-                return new Promise((resolve) => {
-                    setTimeout(() => {
-                        resolve({
-                            hangoutLink: 'https://meet.google.com/abc-defg-hij',
-                            conferenceId: 'abc-defg-hij'
-                        });
-                    }, 2000);
-                });
-            }
-        }
-
-        // Initialize Google Meet Integration
-        const googleMeetIntegration = new GoogleMeetIntegration();
-
-        // Enhanced video call with better UX
-        async function enhancedJoinGoogleMeet() {
-            showNotification('Initializing Google Meet...', 'info');
-            
-            const apiReady = await googleMeetIntegration.initializeMeetAPI();
-            if (!apiReady) {
-                showNotification('Failed to initialize Google Meet. Using fallback...', 'error');
-                joinBuiltInCall();
+            if (credits < 1) {
+                showNotification('Please select a valid number of credits.', 'error');
                 return;
             }
+            
+            showConfirmation(`Confirm payment of ₹${amount} for ${credits} credits?`, () => {
+                // Simulate payment processing
+                setTimeout(() => {
+                    userCredits += credits;
+                    document.getElementById('userCredits').textContent = userCredits;
+                    closeModal('paymentModal');
+                    showNotification(`Successfully added ${credits} credits to your account!`, 'success');
+                }, 1500);
+            });
+        }
 
-            try {
-                const meetingData = await googleMeetIntegration.createMeeting(
-                    currentSessionData.sessionTitle,
-                    currentSessionData.instructorName,
-                    currentUser.name
-                );
-
-                googleMeetUrl = meetingData.hangoutLink;
-                window.open(googleMeetUrl, '_blank');
-                
-                showNotification('Google Meet opened in new tab', 'success');
-                closeMeetModal();
-                
-                // Track session start
-                trackSessionStart('google_meet');
-                
-            } catch (error) {
-                showNotification('Failed to create Google Meet. Using built-in call...', 'error');
-                joinBuiltInCall();
+        // Modal management
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+            
+            // Reset forms if needed
+            if (modalId === 'bookingModal') {
+                document.getElementById('sessionDateTime').value = '';
+                document.getElementById('specialRequirements').value = '';
+                currentBookingSkill = null;
             }
         }
 
-        function trackSessionStart(platform) {
-            // Analytics tracking would go here
-            console.log(`Session started on ${platform} at ${new Date().toISOString()}`);
+        // Notification system
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 15px 20px;
+                border-radius: 10px;
+                color: white;
+                font-weight: 600;
+                z-index: 3000;
+                min-width: 300px;
+                box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+                animation: slideIn 0.3s ease-out;
+            `;
+
+            // Set background color based on type
+            switch (type) {
+                case 'success':
+                    notification.style.background = 'var(--success)';
+                    break;
+                case 'error':
+                    notification.style.background = 'var(--error)';
+                    break;
+                case 'warning':
+                    notification.style.background = 'var(--warning)';
+                    break;
+                default:
+                    notification.style.background = 'var(--primary-blue)';
+            }
+
+            notification.innerHTML = `
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : type === 'warning' ? 'exclamation-triangle' : 'info-circle'}"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+
+            document.body.appendChild(notification);
+
+            // Auto remove after 4 seconds
+            setTimeout(() => {
+                if (notification.parentElement) {
+                    notification.style.animation = 'slideOut 0.3s ease-in';
+                    setTimeout(() => {
+                        if (notification.parentElement) {
+                            notification.remove();
+                        }
+                    }, 300);
+                }
+            }, 4000);
         }
+
+        // Confirmation dialog
+        function showConfirmation(message, onConfirm, onCancel = null) {
+            document.getElementById('confirmationMessage').textContent = message;
+            document.getElementById('confirmationModal').classList.add('active');
+            
+            document.getElementById('confirmYes').onclick = () => {
+                closeModal('confirmationModal');
+                if (onConfirm) onConfirm();
+            };
+            
+            document.getElementById('confirmNo').onclick = () => {
+                closeModal('confirmationModal');
+                if (onCancel) onCancel();
+            };
+        }
+
+        // Close modals when clicking outside
+        window.addEventListener('click', function(e) {
+            if (e.target.classList.contains('modal')) {
+                const modalId = e.target.id;
+                closeModal(modalId);
+            }
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                // Close any open modal
+                const openModal = document.querySelector('.modal.active');
+                if (openModal) {
+                    closeModal(openModal.id);
+                }
+            }
+        });
+
+        // Auto-save user data
+        function saveUserData() {
+            if (currentUser) {
+                const userData = {
+                    ...currentUser,
+                    credits: userCredits,
+                    sessions: bookedSessions,
+                    teaching: teachingSessions,
+                    lastActive: new Date().toISOString()
+                };
+                localStorage.setItem('skillhive_user', JSON.stringify(userData));
+            }
+        }
+
+        // Save data periodically
+        setInterval(saveUserData, 30000); // Save every 30 seconds
+
+        // Save data before page unload
+        window.addEventListener('beforeunload', saveUserData);
+
+        // Load saved data on startup
+        function loadSavedData() {
+            const savedUser = localStorage.getItem('skillhive_user');
+            if (savedUser) {
+                const userData = JSON.parse(savedUser);
+                currentUser = userData;
+                userCredits = userData.credits || 0;
+                bookedSessions = userData.sessions || [];
+                teachingSessions = userData.teaching || [];
+            }
+        }
+
+        // Initialize saved data
+        loadSavedData();
+
+        // Search functionality
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+
+        // Add debounced search
+        if (document.getElementById('skillSearch')) {
+            document.getElementById('skillSearch').addEventListener('keyup', debounce(filterSkills, 300));
+        }
+
+        // Progressive Web App features
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(registration => {
+                        console.log('SW registered: ', registration);
+                    })
+                    .catch(registrationError => {
+                        console.log('SW registration failed: ', registrationError);
+                    });
+            });
+        }
+
+        // Handle online/offline status
+        window.addEventListener('online', () => {
+            showNotification('You are back online!', 'success');
+        });
+
+        window.addEventListener('offline', () => {
+            showNotification('You are offline. Some features may not work.', 'warning');
+        });
+
+        // Theme management (optional feature)
+        function toggleTheme() {
+            const body = document.body;
+            const isDark = body.classList.contains('dark-theme');
+            
+            if (isDark) {
+                body.classList.remove('dark-theme');
+                localStorage.setItem('skillhive-theme', 'light');
+            } else {
+                body.classList.add('dark-theme');
+                localStorage.setItem('skillhive-theme', 'dark');
+            }
+        }
+
+        // Load saved theme
+        const savedTheme = localStorage.getItem('skillhive-theme');
+        if (savedTheme === 'dark') {
+            document.body.classList.add('dark-theme');
+        }
+
+        // Accessibility improvements
+        function handleKeyNavigation(e) {
+            if (e.key === 'Tab') {
+                document.body.classList.add('keyboard-navigation');
+            }
+        }
+
+        function handleMouseNavigation() {
+            document.body.classList.remove('keyboard-navigation');
+        }
+
+        document.addEventListener('keydown', handleKeyNavigation);
+        document.addEventListener('mousedown', handleMouseNavigation);
+
+        // Analytics tracking (would connect to real analytics in production)
+        function trackEvent(category, action, label = null) {
+            console.log('Analytics Event:', { category, action, label });
+            // In production: gtag('event', action, { event_category: category, event_label: label });
+        }
+
+        // Track user interactions
+        function trackSkillView(skillId) {
+            trackEvent('Skills', 'View', skillId);
+        }
+
+        function trackBooking(skillId) {
+            trackEvent('Booking', 'Complete', skillId);
+        }
+
+        function trackPayment(amount) {
+            trackEvent('Payment', 'Complete', amount);
+        }
+
+        // Performance monitoring
+        function measurePerformance(name, fn) {
+            const start = performance.now();
+            const result = fn();
+            const end = performance.now();
+            console.log(`${name} took ${end - start} milliseconds`);
+            return result;
+        }
+
+        // Error boundary for JavaScript errors
+        window.addEventListener('error', function(e) {
+            console.error('JavaScript error:', e.error);
+            showNotification('Something went wrong. Please refresh the page.', 'error');
+        });
+
+        // Unhandled promise rejection handler
+        window.addEventListener('unhandledrejection', function(e) {
+            console.error('Unhandled promise rejection:', e.reason);
+            showNotification('A network error occurred. Please try again.', 'error');
+        });
+
+        // Add CSS animations for better UX
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from { opacity: 0; transform: translateX(100%); }
+                to { opacity: 1; transform: translateX(0); }
+            }
+            
+            @keyframes slideOut {
+                from { opacity: 1; transform: translateX(0); }
+                to { opacity: 0; transform: translateX(100%); }
+            }
+            
+            .keyboard-navigation *:focus {
+                outline: 2px solid var(--primary-blue) !important;
+                outline-offset: 2px;
+            }
+            
+            .dark-theme {
+                filter: invert(1) hue-rotate(180deg);
+            }
+            
+            .dark-theme img,
+            .dark-theme video,
+            .dark-theme iframe {
+                filter: invert(1) hue-rotate(180deg);
+            }
+            
+            @media (prefers-reduced-motion: reduce) {
+                *, *::before, *::after {
+                    animation-duration: 0.01ms !important;
+                    animation-iteration-count: 1 !important;
+                    transition-duration: 0.01ms !important;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        console.log('SkillHive Enhanced - Application loaded successfully!');
     </script>
 </body>
 </html>
